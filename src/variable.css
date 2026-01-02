@@ -1,0 +1,24 @@
+:root{
+    --accent-color: rgb(59, 73, 223);
+    --secondary-font-color: rgb(64, 64, 64);
+    --bg-hover: rgb(95, 106, 225);
+}
+
+.roboto-300{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+.roboto-400{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.roboto-500{
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}

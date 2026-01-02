@@ -1,0 +1,92 @@
+[
+  {
+    "id": "web-developer",
+    "name": "Web Developer",
+    "slug": "web-developer",
+    "icon": "🌐"
+  },
+  {
+    "id": "frontend-developer",
+    "name": "Frontend Developer",
+    "slug": "frontend-developer",
+    "icon": "🎨"
+  },
+  {
+    "id": "backend-developer",
+    "name": "Backend Developer",
+    "slug": "backend-developer",
+    "icon": "🛠️"
+  },
+  {
+    "id": "fullstack-developer",
+    "name": "Fullstack Developer",
+    "slug": "fullstack-developer",
+    "icon": "🧩"
+  },
+  {
+    "id": "mobile-developer",
+    "name": "Mobile Developer",
+    "slug": "mobile-developer",
+    "icon": "📱"
+  },
+  {
+    "id": "database-engineer",
+    "name": "Database Engineer",
+    "slug": "database-engineer",
+    "icon": "🗄️"
+  },
+  {
+    "id": "devops-engineer",
+    "name": "DevOps Engineer",
+    "slug": "devops-engineer",
+    "icon": "⚙️"
+  },
+  {
+    "id": "cloud-engineer",
+    "name": "Cloud Engineer",
+    "slug": "cloud-engineer",
+    "icon": "☁️"
+  },
+  {
+    "id": "security-engineer",
+    "name": "Security Engineer",
+    "slug": "security-engineer",
+    "icon": "🔐"
+  },
+  {
+    "id": "data-engineer",
+    "name": "Data Engineer",
+    "slug": "data-engineer",
+    "icon": "📊"
+  },
+  {
+    "id": "ml-engineer",
+    "name": "Machine Learning Engineer",
+    "slug": "ml-engineer",
+    "icon": "🤖"
+  },
+  {
+    "id": "game-developer",
+    "name": "Game Developer",
+    "slug": "game-developer",
+    "icon": "🎮"
+  },
+  {
+    "id": "qa-engineer",
+    "name": "QA / Test Engineer",
+    "slug": "qa-engineer",
+    "icon": "🧪"
+  },
+  {
+    "id": "system-architect",
+    "name": "System Architect",
+    "slug": "system-architect",
+    "icon": "🏗️"
+  },
+  {
+    "id": "tech-career",
+    "name": "Tech Career & Learning",
+    "slug": "tech-career",
+    "icon": "🎓"
+  }
+]

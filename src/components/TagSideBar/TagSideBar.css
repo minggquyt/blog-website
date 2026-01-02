@@ -1,0 +1,27 @@
+@import url(../../variable.css);
+
+.tagsidebar{
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.tagsidebar-item{
+    height: 40px;
+    padding: 5px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    gap: 5px;
+    color: black;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out;
+}
+.tagsidebar-item:hover{
+    background-color: var(--bg-hover);
+    color: white;
+    cursor: pointer;
+}

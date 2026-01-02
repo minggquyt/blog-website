@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "title": "How Governance and Compliance Saves The World... lolwut?",
+    "slug": "how-governance-and-compliance-saves-the-world",
+    "author": {
+      "id": "ben-link-1",
+      "name": "Ben Link",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "23 tháng 11, 2026",
+    "roles": ["web-developer", "system-architect"],
+    "tags": ["ai", "developers", "leadership", "architecture"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 3 },
+      { "type": "love", "emoji": "❤️", "count": 2 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 1 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 6,
+    "commentsCount": 0,
+    "numberBookmarked": 20
+  },
+  {
+    "id": 2,
+    "title": "Why Most Developers Underestimate System Design",
+    "slug": "why-most-developers-underestimate-system-design",
+    "author": {
+      "id": "alex-nguyen-1",
+      "name": "Alex Nguyen",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "3 tháng 11, 2026",
+    "roles": ["backend-developer", "system-architect"],
+    "tags": ["architecture", "backend", "career"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 4 },
+      { "type": "love", "emoji": "❤️", "count": 3 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 1 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 8,
+    "commentsCount": 4,
+    "numberBookmarked": 20
+  },
+  {
+    "id": 3,
+    "title": "Getting Started with DevOps for Frontend Developers",
+    "slug": "getting-started-with-devops-for-frontend-developers",
+    "author": {
+      "id": "chris-tran-1",
+      "name": "Chris Tran",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "3 tháng 11, 2026",
+    "roles": ["frontend-developer", "devops-engineer"],
+    "tags": ["devops", "ci-cd", "frontend"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 5 },
+      { "type": "love", "emoji": "❤️", "count": 2 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 1 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 8,
+    "commentsCount": 2,
+    "numberBookmarked": 20
+  }
+]
