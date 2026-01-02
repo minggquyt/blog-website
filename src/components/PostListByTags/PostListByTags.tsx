@@ -2,11 +2,12 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { getPostsData } from '../../services/getData';
 import { NavLink } from 'react-router-dom';
+import type { Posts } from '../../types/index.ts';
 import './PostListByTags.css'
 
 export default function PostListByTags() {
     const { tagSlug } = useParams();
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<Posts>([]);
 
     useEffect(() => {
         getPostsData()

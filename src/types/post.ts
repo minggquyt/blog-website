@@ -10,6 +10,8 @@ export interface Post {
   roles: string[];
   tags: string[];
   reactions: Reaction[];
+  totalReacts: number;
+  numberBookmarked: number;
   commentsCount: number;
   isBookmarked: boolean;
 }
