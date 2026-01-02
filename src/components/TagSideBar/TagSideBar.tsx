@@ -1,10 +1,11 @@
 import getTagData from '../../services/getData.js';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import type {Tag} from '../../types/tag.ts';
 import './TagSideBar.css'
 
 export default function TagSideBar() {
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState<Tag[]>([]);
     useEffect(() => {
         getTagData()
             .then(data => {
@@ -19,7 +20,7 @@ export default function TagSideBar() {
             </NavLink>
             {tags.length > 0 && tags.map((tag) => {
                 return (
-                    <NavLink to={`/${tag['slug']}`} key={tag['id']} id={tag['id']} className='tagsidebar-item roboto-500' >
+                    <NavLink to={`/${tag['slug']}`} key={tag['id']} className='tagsidebar-item roboto-500' >
                         <span>{tag["icon"]}</span>
                         <p>{tag["name"]}</p>
                     </NavLink>
