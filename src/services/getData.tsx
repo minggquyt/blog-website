@@ -1,4 +1,4 @@
-import type { Tag, Posts, UserDetailList, PostList } from '../types/index';
+import type { Tag, Posts, UserDetailList } from '../types/index';
 
 export default function getTagData(): Promise<Tag[]>{
     return fetch('/data/tags/tags.json')

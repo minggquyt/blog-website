@@ -7,12 +7,12 @@ import './UserProfile.css'
 
 export default function UserProfile() {
     const { userId } = useParams();
-    const [userInfo, setUserInfo] = useState<UserDetail | null>(null);
+    const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
 
     useEffect(() => {
         getUsersData()
             .then((list: UserDetailList) => {
-                const filteredUserInfo = list.find(user => user.id == userId);
+                const filteredUserInfo: UserDetail | undefined = list.find(user => user.id == userId);
                 setUserInfo(filteredUserInfo);
             })
             .catch(err => console.log(err))
@@ -22,7 +22,7 @@ export default function UserProfile() {
     return (
         <div className='userprofile'>
             {
-                userInfo ?
+                userInfo && userId ?
                     <>
                         <div className="userprofile--header"></div>
                         <div className="userprofile--body">
