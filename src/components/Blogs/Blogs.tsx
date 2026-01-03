@@ -1,11 +1,16 @@
 import TagSideBar from "../TagSideBar/TagSideBar"
-import PostListByTags from "../PostListByTags/PostListByTags"
+import PostList from "../PostList/PostList";
+import { useParams } from "react-router-dom"
 
 export default function Blogs(){
+    const {tagSlug} = useParams();
     return (
         <>
             <TagSideBar />
-            <PostListByTags />
+            <PostList
+                type="tag"
+                value={tagSlug != undefined ? tagSlug : "home"}
+            />
         </>
     )
 }

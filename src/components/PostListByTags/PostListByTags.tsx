@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { getPostsData } from '../../services/getData';
-import { NavLink } from 'react-router-dom';
+import PostCard from '../PostCard/PostCard.tsx';
 import type { Posts } from '../../types/index.ts';
 import './PostListByTags.css'
 
@@ -18,7 +18,7 @@ export default function PostListByTags() {
                     })
                     setPosts(matchedPosts);
                 }
-                else 
+                else
                     setPosts(data);
             })
             .catch(error => console.log(error));
@@ -28,51 +28,25 @@ export default function PostListByTags() {
         <>
             <div className="postlist">
                 {
-                    posts.length > 0 ? posts.map((post) => {
-                        return (
-                            <div key={post['id']} className="post-item">
-                                <NavLink to={`/users/${post['author']['id']}`} className="post-item-header">
-                                    <img src={post['author']['avatar']} width="50px" height="50px" alt="" />
-                                    <div className="post-item-header--userinfo">
-                                        <h3 className='post-item-header--username roboto-500' >{post['author']['name']}</h3>
-                                        <p className='post-item-header--createtime roboto-300'>{post["createdAt"]}</p>
-                                    </div>
-                                </NavLink>
-                                <div className="post-item-title">
-                                    <h1 className='roboto-500' >{post['title']}</h1>
-                                    <div className="post-item-tags inter-300">
-                                        {post['roles'].map((role) => {
-                                            return (
-                                                <p  key={role}>#{role}</p>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                                <div className="post-item-footer">
-                                    <div className='post-item-footer-left roboto-300' >
-                                        <div className="post-item-footer--react">
-                                            <span className="material-symbols-outlined">
-                                                mood
-                                            </span>
-                                            {post['totalReacts']}
-                                        </div>
-                                        <div className="post-item-footer--comment">
-                                            <span className="material-symbols-outlined">
-                                                mode_comment
-                                            </span>
-                                            {post['commentsCount']}
-                                        </div>
-                                    </div>
-                                    <div className="post-item-footer--bookmark">
-                                        <span className="material-symbols-outlined">
-                                            bookmark
-                                        </span>
-                                        {post['numberBookmarked']}
-                                    </div>
-                                </div>
-                            </div>
+                    posts.length > 0 ?
+                        posts.map(post => {
+                            return <PostCard
+                                key={post.id}
+                                postId = {post.id}
+                                postAuthorAvatar = {post.author.avatar}
+                                postAuthorName = {post.author.name}
+                                postCreateTime = {post.createdAt}
+                                postTitle = {post.title}
+                                postRoles = {post.roles}
+                                postTotalReacts = {post.totalReacts}
+                                postTotalComments = {post.commentsCount}
+                                postTotalSave = {post.numberBookmarked}
+                                postAuthorId = {post.author.id}
+                                />
+                        })
+                        : (
+                            <div>Chưa có data</div>
                         )
-                    }) : <div className='post-notfount roboto-500' >Chưa có data</div>
                 }
             </div>
         </>

@@ -8,7 +8,8 @@ export default function Homepage(){
         <div  className='content'>
             <Routes>
                 <Route path=':tagSlug?' element={<Blogs/>} />
-                <Route path='/users/:user-id' element={<UserProfile/>} />
+                <Route path='/users/:userId' element={<UserProfile/>} />
+                
             </Routes>
         </div>
     )

@@ -22,6 +22,7 @@
     "commentsCount": 0,
     "numberBookmarked": 20
   },
+
   {
     "id": 2,
     "title": "Why Most Developers Underestimate System Design",
@@ -45,6 +46,7 @@
     "commentsCount": 4,
     "numberBookmarked": 20
   },
+
   {
     "id": 3,
     "title": "Getting Started with DevOps for Frontend Developers",
@@ -67,5 +69,125 @@
     "totalReacts": 8,
     "commentsCount": 2,
     "numberBookmarked": 20
+  },
+
+  {
+    "id": 4,
+    "title": "Clean Architecture Is Not Overkill",
+    "slug": "clean-architecture-is-not-overkill",
+    "author": {
+      "id": "ben-link-1",
+      "name": "Ben Link",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "25 tháng 11, 2026",
+    "roles": ["system-architect"],
+    "tags": ["architecture", "clean-code"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 6 },
+      { "type": "love", "emoji": "❤️", "count": 4 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 2 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 12,
+    "commentsCount": 3,
+    "numberBookmarked": 30
+  },
+
+  {
+    "id": 5,
+    "title": "Monolith vs Microservices: A Practical View",
+    "slug": "monolith-vs-microservices-practical-view",
+    "author": {
+      "id": "alex-nguyen-1",
+      "name": "Alex Nguyen",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "6 tháng 11, 2026",
+    "roles": ["backend-developer"],
+    "tags": ["backend", "microservices"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 7 },
+      { "type": "love", "emoji": "❤️", "count": 3 },
+      { "type": "sad", "emoji": "😢", "count": 1 },
+      { "type": "wow", "emoji": "😮", "count": 1 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 12,
+    "commentsCount": 5,
+    "numberBookmarked": 18
+  },
+
+  {
+    "id": 6,
+    "title": "Scaling APIs Without Losing Your Mind",
+    "slug": "scaling-apis-without-losing-your-mind",
+    "author": {
+      "id": "alex-nguyen-1",
+      "name": "Alex Nguyen",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "10 tháng 11, 2026",
+    "roles": ["backend-developer"],
+    "tags": ["api", "performance", "backend"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 5 },
+      { "type": "love", "emoji": "❤️", "count": 2 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 2 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 9,
+    "commentsCount": 1,
+    "numberBookmarked": 15
+  },
+
+  {
+    "id": 7,
+    "title": "Why Frontend Developers Should Learn DevOps",
+    "slug": "why-frontend-developers-should-learn-devops",
+    "author": {
+      "id": "chris-tran-1",
+      "name": "Chris Tran",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "8 tháng 11, 2026",
+    "roles": ["frontend-developer"],
+    "tags": ["frontend", "devops"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 8 },
+      { "type": "love", "emoji": "❤️", "count": 3 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 2 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 13,
+    "commentsCount": 4,
+    "numberBookmarked": 22
+  },
+
+  {
+    "id": 8,
+    "title": "CI/CD Pipelines Explained for Beginners",
+    "slug": "ci-cd-pipelines-explained-for-beginners",
+    "author": {
+      "id": "chris-tran-1",
+      "name": "Chris Tran",
+      "avatar": "/images/users/user-1.png"
+    },
+    "createdAt": "12 tháng 11, 2026",
+    "roles": ["devops-engineer"],
+    "tags": ["ci-cd", "devops"],
+    "reactions": [
+      { "type": "like", "emoji": "👍", "count": 6 },
+      { "type": "love", "emoji": "❤️", "count": 2 },
+      { "type": "sad", "emoji": "😢", "count": 0 },
+      { "type": "wow", "emoji": "😮", "count": 1 },
+      { "type": "angry", "emoji": "😡", "count": 0 }
+    ],
+    "totalReacts": 9,
+    "commentsCount": 2,
+    "numberBookmarked": 17
   }
 ]

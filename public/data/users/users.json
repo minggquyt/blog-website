@@ -1,0 +1,205 @@
+[
+  {
+    "id": "ben-link-1",
+    "basicInfo": {
+      "username": "Ben Link",
+      "avatar": {
+        "url": "/images/users/user-1.png",
+        "width": 200,
+        "height": 200
+      },
+      "followers": {
+        "count": 14000,
+        "label": "Followers"
+      }
+    },
+    "introduction": {
+      "title": "Introduction",
+      "items": [
+        {
+          "id": "intro_work",
+          "type": "text",
+          "icon": "work",
+          "label": "Job",
+          "value": "Software Engineer",
+          "editable": true,
+          "visibility": "public"
+        },
+        {
+          "id": "intro_instagram",
+          "type": "link",
+          "icon": "link",
+          "label": "Instagram",
+          "value": "https://instagram.com/benlink",
+          "editable": true,
+          "visibility": "public"
+        },
+        {
+          "id": "intro_facebook",
+          "type": "link",
+          "icon": "link",
+          "label": "Facebook",
+          "value": "https://facebook.com/benlink",
+          "editable": true,
+          "visibility": "public"
+        }
+      ]
+    },
+    "statistics": {
+      "items": [
+        {
+          "id": "stat_posts",
+          "icon": "article",
+          "label": "Posts published",
+          "value": 50
+        },
+        {
+          "id": "stat_comments",
+          "icon": "mode_comment",
+          "label": "Comments written",
+          "value": 50
+        },
+        {
+          "id": "stat_tags",
+          "icon": "tag",
+          "label": "Tags followed",
+          "value": 8
+        }
+      ]
+    },
+    "meta": {
+      "createdAt": "2025-01-01T10:00:00Z",
+      "updatedAt": "2026-01-02T08:30:00Z"
+    }
+  },
+
+  {
+    "id": "alex-nguyen-1",
+    "basicInfo": {
+      "username": "Alex Nguyen",
+      "avatar": {
+        "url": "/images/users/user-2.png",
+        "width": 200,
+        "height": 200
+      },
+      "followers": {
+        "count": 8200,
+        "label": "Followers"
+      }
+    },
+    "introduction": {
+      "title": "Introduction",
+      "items": [
+        {
+          "id": "intro_work",
+          "type": "text",
+          "icon": "work",
+          "label": "Job",
+          "value": "Backend Developer",
+          "editable": true,
+          "visibility": "public"
+        },
+        {
+          "id": "intro_linkedin",
+          "type": "link",
+          "icon": "link",
+          "label": "LinkedIn",
+          "value": "https://linkedin.com/in/alexnguyen",
+          "editable": true,
+          "visibility": "public"
+        }
+      ]
+    },
+    "statistics": {
+      "items": [
+        {
+          "id": "stat_posts",
+          "icon": "article",
+          "label": "Posts published",
+          "value": 32
+        },
+        {
+          "id": "stat_comments",
+          "icon": "mode_comment",
+          "label": "Comments written",
+          "value": 71
+        },
+        {
+          "id": "stat_tags",
+          "icon": "tag",
+          "label": "Tags followed",
+          "value": 12
+        }
+      ]
+    },
+    "meta": {
+      "createdAt": "2025-02-15T09:20:00Z",
+      "updatedAt": "2026-01-01T14:10:00Z"
+    }
+  },
+
+  {
+    "id": "chris-tran-1",
+    "basicInfo": {
+      "username": "Chris Tran",
+      "avatar": {
+        "url": "/images/users/user-3.png",
+        "width": 200,
+        "height": 200
+      },
+      "followers": {
+        "count": 5600,
+        "label": "Followers"
+      }
+    },
+    "introduction": {
+      "title": "Introduction",
+      "items": [
+        {
+          "id": "intro_work",
+          "type": "text",
+          "icon": "work",
+          "label": "Job",
+          "value": "Frontend Developer",
+          "editable": true,
+          "visibility": "public"
+        },
+        {
+          "id": "intro_github",
+          "type": "link",
+          "icon": "link",
+          "label": "GitHub",
+          "value": "https://github.com/christran",
+          "editable": true,
+          "visibility": "public"
+        }
+      ]
+    },
+    "statistics": {
+      "items": [
+        {
+          "id": "stat_posts",
+          "icon": "article",
+          "label": "Posts published",
+          "value": 18
+        },
+        {
+          "id": "stat_comments",
+          "icon": "mode_comment",
+          "label": "Comments written",
+          "value": 24
+        },
+        {
+          "id": "stat_tags",
+          "icon": "tag",
+          "label": "Tags followed",
+          "value": 6
+        }
+      ]
+    },
+    "meta": {
+      "createdAt": "2025-03-10T11:00:00Z",
+      "updatedAt": "2026-01-02T07:45:00Z"
+    }
+  }
+]
