@@ -1,0 +1,140 @@
+import { NavLink, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import type { PostDetailParams, Post, Posts, UserDetail, UserDetailList } from '../../types';
+import { getPostsData, getUsersData } from '../../services/getData';
+import './PostDetail.css'
+
+export default function PostDetail() {
+    const { userId, postId } = useParams<PostDetailParams>();
+    const [postData, setPostData] = useState<Post | undefined>(undefined);
+    const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
+
+    useEffect(() => {
+        getPostsData()
+            .then((posts: Posts) => {
+                const postIdNumberType = Number(postId)
+                const findedPost: Post | undefined = posts.find(post => post.id == postIdNumberType);
+                setPostData(findedPost);
+                console.log(findedPost);
+            })
+
+        getUsersData()
+            .then((users: UserDetailList) => {
+                const findedUser: UserDetail | undefined = users.find(user => user.id == userId);
+                setUserInfo(findedUser);
+                console.log(findedUser);
+            })
+
+    }, [userId, postId]);
+
+
+    return (
+        <div className="post-detail">
+            {
+                postData && userInfo && (
+                    <>
+                        <div className="post-detail-leftsidebar">
+                            <div className='post-detail-leftsidebar--reaction'>
+                                <span className="material-symbols-outlined">
+                                    add_reaction
+                                </span>
+                                20
+                            </div>
+                            <div className="post-detail-leftsidebar--comment">
+                                <span className="material-symbols-outlined">
+                                    mode_comment
+                                </span>
+                                20
+                            </div>
+                            <div className="post-detail-leftsidebar--bookmark">
+                                <span className="material-symbols-outlined">
+                                    bookmark
+                                </span>
+                                20
+                            </div>
+                            <div className="post-detail-leftsidebar--reupload">
+                                <span className="material-symbols-outlined">
+                                    cached
+                                </span>
+                                20
+                            </div>
+                        </div>
+                        <div className="post-detail-content">
+                            <a className="post-detail-content--background" href={postData.background}>
+                                <img src={postData.background} alt="" />
+                            </a>
+                            <NavLink to={`/users/${userInfo.id}`}   className="post-detail-content--author">
+                                <img src={userInfo?.basicInfo.avatar.url} width="50px" height="50px" alt="" className="post-detail-content--author_avatar" />
+                                <div className="post-detail-content--authordesc">
+                                    <h3 className='roboto-500'>{userInfo?.basicInfo.username}</h3>
+                                    <p className='roboto-300'>Đăng ngày {postData.createdAt}</p>
+                                </div>
+                            </NavLink>
+                            <div className="post-detail-content--title">
+                                <h1 className='roboto-500'>{postData.title}</h1>
+                                <div className="post-detail-content--title_tag">
+                                    {
+                                        postData.roles.map((role) => {
+                                            return (
+                                                <p key={role} className="roboto-300">
+                                                    #{role}
+                                                </p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="post-detail-content--body">
+                                {
+                                    postData.content.map((paragraph) => {
+                                        return (
+                                            <p key={paragraph.id} className="roboto-400">
+                                                {paragraph.value}
+                                            </p>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className="post-detail-author">
+                            <a className="post-detail-author--background">
+                                <img src={userInfo.background} alt="" />
+                            </a>
+                            <div>
+                                <NavLink to={`/users/${userInfo.id}`} className="post-detail-author--info">
+                                    <img src={userInfo?.basicInfo.avatar.url} width="80px" height="80px" alt="" />
+                                    <h2 className='roboto-500'>{userInfo?.basicInfo.username}</h2>
+                                </NavLink>
+                                <button className='roboto-500' >Follow</button>
+                                <NavLink to={`/users/${userInfo.id}`} className='roboto-300 post-detail-author--info_introduction'>
+                                    {
+                                        userInfo.introduction.items.map((item) => {
+                                            return (
+                                                <p key={item.id}>
+                                                    <span className="material-symbols-outlined">
+                                                        {item.icon}
+                                                    </span>{item.value}
+                                                </p>
+                                            )
+                                        })
+
+                                    }
+                                    {
+                                        userInfo.statistics.items.map(item => {
+                                            return (
+                                                <p key={item.id} ><span className="material-symbols-outlined">
+                                                    {item.icon}
+                                                </span><span>{item.value}</span>{item.label}</p>
+                                            )
+                                        })
+                                    }
+                                </NavLink>
+                            </div>
+                        </div>
+                    </>
+                )
+            }
+
+        </div>
+    )
+}

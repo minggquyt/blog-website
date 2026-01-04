@@ -1,6 +1,7 @@
 [
   {
     "id": "ben-link-1",
+    "background": "https://www.pixelstalk.net/wp-content/uploads/images1/Castle-Backgrounds-HD.jpg",
     "basicInfo": {
       "username": "Ben Link",
       "avatar": {
@@ -75,10 +76,11 @@
 
   {
     "id": "alex-nguyen-1",
+    "background": "https://www.pixelstalk.net/wp-content/uploads/images1/Castle-Backgrounds-HD.jpg",
     "basicInfo": {
       "username": "Alex Nguyen",
       "avatar": {
-        "url": "/images/users/user-2.png",
+        "url": "/images/users/user-1.png",
         "width": 200,
         "height": 200
       },
@@ -140,10 +142,11 @@
 
   {
     "id": "chris-tran-1",
+    "background": "https://www.pixelstalk.net/wp-content/uploads/images1/Castle-Backgrounds-HD.jpg",
     "basicInfo": {
       "username": "Chris Tran",
       "avatar": {
-        "url": "/images/users/user-3.png",
+        "url": "/images/users/user-1.png",
         "width": 200,
         "height": 200
       },

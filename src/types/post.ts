@@ -2,6 +2,11 @@ import type { Author } from "./author";
 import type { Reaction } from "./reaction";
 
 // Posts = post[]
+export interface PostContent {
+  id: number;
+  value: string;
+}
+
 export interface Post {
   id: number;
   title: string;
@@ -14,7 +19,8 @@ export interface Post {
   totalReacts: number;
   numberBookmarked: number;
   commentsCount: number;
-  isBookmarked: boolean;
+  content: PostContent[]; 
+  background: string;
 }
 
 export type Posts = Post[];
@@ -42,6 +48,12 @@ export type PostList = PostCard[];
 export type PostFilter = {
   type: "tag" | "author";
   value: string;
+}
+
+// PostDetailParams
+export type PostDetailParams = {
+  userId: string;
+  postId: string;
 }
 
 

@@ -24,7 +24,9 @@ export default function UserProfile() {
             {
                 userInfo && userId ?
                     <>
-                        <div className="userprofile--header"></div>
+                        <div className="userprofile--header">
+                            <img src={userInfo.background} alt="" />
+                        </div>
                         <div className="userprofile--body">
                             <div className="userprofile--bodycontent">
                                 <div className="userprofile--bodycontent--header">

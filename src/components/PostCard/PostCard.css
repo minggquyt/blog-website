@@ -20,6 +20,8 @@
     padding-left: 50px;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: black;
     gap: 10px;
 }
 .post-item-footer{

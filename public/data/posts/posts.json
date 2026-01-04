@@ -20,7 +20,19 @@
     ],
     "totalReacts": 6,
     "commentsCount": 0,
-    "numberBookmarked": 20
+    "numberBookmarked": 20,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "Governance and compliance are often misunderstood in modern software teams." },
+      { "id": 2, "value": "Many developers believe these concepts slow innovation." },
+      { "id": 3, "value": "In reality, governance provides clarity and direction." },
+      { "id": 4, "value": "Compliance helps teams avoid costly mistakes." },
+      { "id": 5, "value": "Clear rules reduce ambiguity in decision making." },
+      { "id": 6, "value": "Automation makes compliance scalable." },
+      { "id": 7, "value": "Good governance empowers teams." },
+      { "id": 8, "value": "Bad governance suffocates creativity." },
+      { "id": 9, "value": "The difference lies in how rules are designed." }
+    ]
   },
 
   {
@@ -44,7 +56,16 @@
     ],
     "totalReacts": 8,
     "commentsCount": 4,
-    "numberBookmarked": 20
+    "numberBookmarked": 20,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "System design is often treated as an advanced topic." },
+      { "id": 2, "value": "Many developers focus only on frameworks." },
+      { "id": 3, "value": "Scalability issues appear later, not on day one." },
+      { "id": 4, "value": "Early decisions shape future complexity." },
+      { "id": 5, "value": "Design is about trade-offs." },
+      { "id": 6, "value": "Perfect architecture does not exist." }
+    ]
   },
 
   {
@@ -68,7 +89,17 @@
     ],
     "totalReacts": 8,
     "commentsCount": 2,
-    "numberBookmarked": 20
+    "numberBookmarked": 20,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "DevOps is not just for backend engineers." },
+      { "id": 2, "value": "Frontend developers also benefit from DevOps practices." },
+      { "id": 3, "value": "CI/CD improves confidence in deployments." },
+      { "id": 4, "value": "Automation reduces manual errors." },
+      { "id": 5, "value": "Understanding pipelines improves collaboration." },
+      { "id": 6, "value": "DevOps bridges the gap between code and production." },
+      { "id": 7, "value": "Small steps lead to big improvements." }
+    ]
   },
 
   {
@@ -92,7 +123,16 @@
     ],
     "totalReacts": 12,
     "commentsCount": 3,
-    "numberBookmarked": 30
+    "numberBookmarked": 30,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "Clean architecture is often misunderstood." },
+      { "id": 2, "value": "Many think it adds unnecessary complexity." },
+      { "id": 3, "value": "In reality, it manages complexity." },
+      { "id": 4, "value": "Separation of concerns improves maintainability." },
+      { "id": 5, "value": "Clean code ages better." },
+      { "id": 6, "value": "Architecture is about long-term thinking." }
+    ]
   },
 
   {
@@ -116,7 +156,15 @@
     ],
     "totalReacts": 12,
     "commentsCount": 5,
-    "numberBookmarked": 18
+    "numberBookmarked": 18,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "Microservices are not always the answer." },
+      { "id": 2, "value": "Monoliths can be easier to manage." },
+      { "id": 3, "value": "Context matters when choosing architecture." },
+      { "id": 4, "value": "Team size influences decisions." },
+      { "id": 5, "value": "Operational cost is often underestimated." }
+    ]
   },
 
   {
@@ -140,7 +188,15 @@
     ],
     "totalReacts": 9,
     "commentsCount": 1,
-    "numberBookmarked": 15
+    "numberBookmarked": 15,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "Scaling APIs introduces new challenges." },
+      { "id": 2, "value": "Caching is often the first step." },
+      { "id": 3, "value": "Rate limiting protects systems." },
+      { "id": 4, "value": "Monitoring is essential." },
+      { "id": 5, "value": "Scaling is a continuous process." }
+    ]
   },
 
   {
@@ -164,7 +220,14 @@
     ],
     "totalReacts": 13,
     "commentsCount": 4,
-    "numberBookmarked": 22
+    "numberBookmarked": 22,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "DevOps knowledge empowers frontend developers." },
+      { "id": 2, "value": "Understanding deployment reduces fear." },
+      { "id": 3, "value": "Automation improves delivery speed." },
+      { "id": 4, "value": "Cross-team collaboration becomes easier." }
+    ]
   },
 
   {
@@ -188,6 +251,14 @@
     ],
     "totalReacts": 9,
     "commentsCount": 2,
-    "numberBookmarked": 17
+    "numberBookmarked": 17,
+    "background": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F2gd3ogwqujc7b8wolj4f.png",
+    "content": [
+      { "id": 1, "value": "CI/CD pipelines automate software delivery." },
+      { "id": 2, "value": "They reduce human error." },
+      { "id": 3, "value": "Pipelines increase confidence in releases." },
+      { "id": 4, "value": "Feedback loops become shorter." },
+      { "id": 5, "value": "Beginners should start simple." }
+    ]
   }
 ]

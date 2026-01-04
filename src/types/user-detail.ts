@@ -55,6 +55,7 @@ interface UserMeta {
 
 export interface UserDetail {
   id: string;
+  background: string;
   basicInfo: UserBasicInfo;
   introduction: UserIntroduction;
   statistics: UserStatistics;
