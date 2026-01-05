@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom"
 import type { PostCard } from "../../types/index.ts"
-import { useRef } from "react"
 import './PostCard.css'
 
 export default function PostCard({
