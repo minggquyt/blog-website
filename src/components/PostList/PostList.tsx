@@ -17,7 +17,7 @@ export default function PostList({
                 let filteredPostCard: Posts = [];
                 if (type == "tag") {
                     if (value != 'home') {
-                        // viết logic fetch data từ postCard
+                        // logic lọc data theo data của database 
                         filteredPostCard = posts.filter((post: Post) => {
                             return post.roles.includes(value);
                         })
@@ -34,6 +34,34 @@ export default function PostList({
 
                 setList(mapPostsToPostList(filteredPostCard));
             })
+
+        // getAllDataFromDatabase('posts')
+        //     .then((posts: Posts) => {
+        //         console.log(posts);
+        //         let filteredPostCard: Posts = [];
+        //         if (type == "tag") {
+        //             if (value != 'home') {
+        //                 // logic lọc data theo data của database 
+        //                 filteredPostCard = posts.filter((post: Post) => {
+        //                     return post['tags_slug'].includes(value);
+        //                 })
+        //             }
+        //             else{
+        //                 filteredPostCard = posts;
+        //             }
+        //         }
+        //         else if (type == "author") {
+        //             filteredPostCard = posts.filter((post) => {
+        //                 return post.author.id == value;
+        //             })
+        //         }
+
+        //         console.log("các tags đã được lọc: ");
+        //         console.log(filteredPostCard);
+                
+        //         setList(mapPostsToPostList(filteredPostCard));
+        //     });   
+
     }, [type, value]);
 
     return (

@@ -1,31 +1,33 @@
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import type { PostDetailParams, Post, Posts, UserDetail, UserDetailList } from '../../types';
 import { getPostsData, getUsersData } from '../../services/getData';
+import CommentCard from '../CommentCard/CommentCard';
 import './PostDetail.css'
 
 export default function PostDetail() {
     const { userId, postId } = useParams<PostDetailParams>();
     const [postData, setPostData] = useState<Post | undefined>(undefined);
     const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
+    const location = useLocation();
 
     useEffect(() => {
-        getPostsData()
-            .then((posts: Posts) => {
+        Promise.all([getPostsData(),getUsersData()])
+            .then(([posts,users]: [Posts, UserDetailList]) => {
                 const postIdNumberType = Number(postId)
                 const findedPost: Post | undefined = posts.find(post => post.id == postIdNumberType);
-                setPostData(findedPost);
-                console.log(findedPost);
-            })
-
-        getUsersData()
-            .then((users: UserDetailList) => {
                 const findedUser: UserDetail | undefined = users.find(user => user.id == userId);
+                setPostData(findedPost);
                 setUserInfo(findedUser);
-                console.log(findedUser);
             })
+        console.log("useEffect trên chạy !");
 
     }, [userId, postId]);
+
+    useEffect(() => {   
+        if(location.hash)
+            document.querySelector(location.hash)?.scrollIntoView({behavior: "smooth"});
+    },[postData,userInfo]);
 
 
     return (
@@ -63,7 +65,7 @@ export default function PostDetail() {
                             <a className="post-detail-content--background" href={postData.background}>
                                 <img src={postData.background} alt="" />
                             </a>
-                            <NavLink to={`/users/${userInfo.id}`}   className="post-detail-content--author">
+                            <NavLink to={`/users/${userInfo.id}`} className="post-detail-content--author">
                                 <img src={userInfo?.basicInfo.avatar.url} width="50px" height="50px" alt="" className="post-detail-content--author_avatar" />
                                 <div className="post-detail-content--authordesc">
                                     <h3 className='roboto-500'>{userInfo?.basicInfo.username}</h3>
@@ -94,6 +96,16 @@ export default function PostDetail() {
                                         )
                                     })
                                 }
+                            </div>
+                            <div id='commnets' className="post-detail-comments">
+                                <h1 className='roboto-500'>Comments</h1>
+                                <div className="post-detail-comments--userinput">
+                                    <img src="/images/users/user-1.png" width="50px" height="50px" alt="" />
+                                    <form action=""><input className='roboto-300' type="text" placeholder='Thêm bình luận' /></form>
+                                </div>
+                                <div className="post-detail-comments--list">
+                                    <CommentCard />
+                                </div>
                             </div>
                         </div>
                         <div className="post-detail-author">

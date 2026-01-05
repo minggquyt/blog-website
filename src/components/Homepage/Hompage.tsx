@@ -5,6 +5,7 @@ import PostDetail from "../PostDetail/PostDetail"
 import './Hompage.css'
 
 export default function Homepage(){
+
     return (
         <div className='content'>
             <Routes>

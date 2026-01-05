@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 
 export default function Blogs(){
     const {tagSlug} = useParams();
+    
     return (
         <>
             <TagSideBar />

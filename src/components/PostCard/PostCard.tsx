@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import type { PostCard } from "../../types/index.ts"
+import { useRef } from "react"
 import './PostCard.css'
 
 export default function PostCard({
@@ -14,6 +15,7 @@ export default function PostCard({
     postTotalSave,
     postAuthorId
 }: PostCard) {
+
     return (
         <div key={postId} className="post-item">
             <NavLink to={`/users/${postAuthorId}`} className="post-item-header">
@@ -41,12 +43,12 @@ export default function PostCard({
                         </span>
                         {postTotalReacts}
                     </div>
-                    <div className="post-item-footer--comment">
+                    <NavLink to={`/${postAuthorId}/${postId}/#commnets`} className="post-item-footer--comment">
                         <span className="material-symbols-outlined">
                             mode_comment
                         </span>
                         {postTotalComments}
-                    </div>
+                    </NavLink>
                 </div>
                 <div className="post-item-footer--bookmark">
                     <span className="material-symbols-outlined">

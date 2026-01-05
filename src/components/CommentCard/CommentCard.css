@@ -1,0 +1,36 @@
+.comment-card{
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    gap: 15px;
+}
+.comment-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment-card-header--userinfo{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.comment-card-header > span{
+    color: #3d3d3d;
+}
+.comment-card-body{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-left: 70px;
+}
+.comment-card-body--reaction{
+    display: flex;
+    gap: 30px;
+}
+.comment-card-body--reaction > div{
+    display: flex;
+    gap: 15px;
+}
+.comment-card-body--reaction > div > span{
+    cursor: pointer;
+}

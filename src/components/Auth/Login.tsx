@@ -36,12 +36,12 @@ const Login = ({ onToggleMode, onSuccess }: LoginProps) => {
 
   return (
     <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Đăng nhập</h2>
+      <form onSubmit={handleSubmit} className="auth-form roboto-500">
+        <h2 className='roboto-500' >Đăng nhập</h2>
         
         {error && <div className="error-message">{error}</div>}
         
-        <div className="form-group">
+        <div className="form-group roboto-500">
           <label htmlFor="email">Email:</label>
           <input
             id="email"
@@ -54,7 +54,7 @@ const Login = ({ onToggleMode, onSuccess }: LoginProps) => {
         </div>
         
         <div className="form-group">
-          <label htmlFor="password">Mật khẩu:</label>
+          <label htmlFor="password roboto-500">Mật khẩu:</label>
           <input
             id="password"
             type="password"
@@ -69,9 +69,9 @@ const Login = ({ onToggleMode, onSuccess }: LoginProps) => {
           {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
         
-        <p className="auth-toggle">
+        <p className="auth-toggle roboto-500">
           Chưa có tài khoản?{' '}
-          <button type="button" onClick={onToggleMode} className="link-button">
+          <button type="button" onClick={onToggleMode} className="link-button roboto-500">
             Đăng ký ngay
           </button>
         </p>
