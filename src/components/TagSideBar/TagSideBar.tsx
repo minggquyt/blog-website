@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import type {Tag, TagSupababase} from '../../types/tag.ts';
+import type {TagSupababase} from '../../types/tag.ts';
 import { getAllDataFromDatabase } from '../../services/getData.js';
 import './TagSideBar.css'
 
