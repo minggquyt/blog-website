@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getUsersData } from '../../services/getData';
-import type { UserDetail, UserDetailList } from '../../types/index.ts';
+import { getUsersInfoWithIdFromDatabase} from '../../services/getData';
+import type { UserDetail } from '../../types/index.ts';
+import { mapToUserDetail } from '../../mapper/mapToUserDetail.tsx';
 import PostList from '../PostList/PostList.tsx';
 import './UserProfile.css'
 
@@ -10,12 +11,20 @@ export default function UserProfile() {
     const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
 
     useEffect(() => {
-        getUsersData()
-            .then((list: UserDetailList) => {
-                const filteredUserInfo: UserDetail | undefined = list.find(user => user.id == userId);
-                setUserInfo(filteredUserInfo);
+
+        if(userId != undefined){
+            getUsersInfoWithIdFromDatabase(userId)
+            .then((data) => {
+                if (data != undefined) {
+                    const filteredData: UserDetail | undefined  = mapToUserDetail(data);
+                   setUserInfo(filteredData);
+                }
+                else{
+                    console.warn("user profile data is undefined !");
+                }
             })
-            .catch(err => console.log(err))
+        }
+
     }, [userId]);
 
 
@@ -68,10 +77,10 @@ export default function UserProfile() {
                                         </div>
                                     </div>
                                     <div className="userprofile--bodycontent--body--rightcontainer">
-                                            <PostList
-                                                type='author'
-                                                value={userId}
-                                            />
+                                        <PostList
+                                            type='author'
+                                            value={userId}
+                                        />
                                     </div>
                                 </div>
                             </div>

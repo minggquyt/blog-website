@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import type { PostFilter, PostList, Posts, Post } from '../../types'
+import type { PostFilter, PostList, Posts } from '../../types'
 import PostCard from '../PostCard/PostCard';
 import { mapPostsToPostList } from '../../mapper/mapPostsToPostList';
-import { getPostsData } from '../../services/getData'
+import { getPostsDataFromDatabase } from '../../services/getData'
 import './PostList.css'
 
 export default function PostList({
@@ -12,64 +12,41 @@ export default function PostList({
     const [list, setList] = useState<PostList>([]);
 
     useEffect(() => {
-        getPostsData()
-            .then((posts: Posts) => {
+
+        getPostsDataFromDatabase()
+            .then((posts) => {
                 let filteredPostCard: Posts = [];
-                if (type == "tag") {
+                if (type == "tag" && posts != undefined) {
                     if (value != 'home') {
-                        // logic lọc data theo data của database 
-                        filteredPostCard = posts.filter((post: Post) => {
-                            return post.roles.includes(value);
-                        })
+                        filteredPostCard = posts.filter(post => {
+                            return post.tags.includes(value);
+                        });
                     }
-                    else{
+                    else {
                         filteredPostCard = posts;
                     }
                 }
-                else if (type == "author") {
+                else if (type == "author" && posts != undefined) {
                     filteredPostCard = posts.filter((post) => {
                         return post.author.id == value;
                     })
+                }
+                else{
+                    console.warn("Lỗi trong quá trình Fetch Post Data");
                 }
 
                 setList(mapPostsToPostList(filteredPostCard));
             })
 
-        // getAllDataFromDatabase('posts')
-        //     .then((posts: Posts) => {
-        //         console.log(posts);
-        //         let filteredPostCard: Posts = [];
-        //         if (type == "tag") {
-        //             if (value != 'home') {
-        //                 // logic lọc data theo data của database 
-        //                 filteredPostCard = posts.filter((post: Post) => {
-        //                     return post['tags_slug'].includes(value);
-        //                 })
-        //             }
-        //             else{
-        //                 filteredPostCard = posts;
-        //             }
-        //         }
-        //         else if (type == "author") {
-        //             filteredPostCard = posts.filter((post) => {
-        //                 return post.author.id == value;
-        //             })
-        //         }
-
-        //         console.log("các tags đã được lọc: ");
-        //         console.log(filteredPostCard);
-                
-        //         setList(mapPostsToPostList(filteredPostCard));
-        //     });   
-
     }, [type, value]);
+
 
     return (
         <div className="postlist">
             {
                 list.map(card => {
                     return (
-                        <PostCard
+                        <PostCard 
                             key={card.postId}
                             postId={card.postId}
                             postAuthorAvatar={card.postAuthorAvatar}

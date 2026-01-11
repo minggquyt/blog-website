@@ -1,6 +1,6 @@
-import type { Posts, PostList } from "../types";
+import type { Post, PostList } from "../types";
 import { mapPostToPostCard } from "./mapPostToPostCard";
 
-export function mapPostsToPostList(posts: Posts): PostList {
-  return posts.map(post => mapPostToPostCard(post));
+export function mapPostsToPostList(posts: Post[]): PostList{
+    return posts.map(post => mapPostToPostCard(post));
 }

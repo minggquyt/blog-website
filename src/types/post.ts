@@ -8,7 +8,7 @@ export interface PostContent {
 }
 
 export interface Post {
-  id: number;
+  id: number; // sửa thành string
   title: string;
   slug: string;
   author: Author;
@@ -19,7 +19,7 @@ export interface Post {
   totalReacts: number;
   numberBookmarked: number;
   commentsCount: number;
-  content: PostContent[]; 
+  content: PostContent[];
   background: string;
 }
 
@@ -55,5 +55,3 @@ export type PostDetailParams = {
   userId: string;
   postId: string;
 }
-
-

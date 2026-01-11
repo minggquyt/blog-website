@@ -1,7 +1,9 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import type { PostDetailParams, Post, Posts, UserDetail, UserDetailList } from '../../types';
-import { getPostsData, getUsersData } from '../../services/getData';
+import type { PostDetailParams, Post, UserDetail} from '../../types';
+import { getPostsDataWithIdFromDatabase, getUsersInfoWithIdFromDatabase } from '../../services/getData';
+import { mapToUserDetail } from '../../mapper/mapToUserDetail';
+import { mapToPostType } from '../../mapper/mapToPostType';
 import CommentCard from '../CommentCard/CommentCard';
 import './PostDetail.css'
 
@@ -12,22 +14,26 @@ export default function PostDetail() {
     const location = useLocation();
 
     useEffect(() => {
-        Promise.all([getPostsData(),getUsersData()])
-            .then(([posts,users]: [Posts, UserDetailList]) => {
-                const postIdNumberType = Number(postId)
-                const findedPost: Post | undefined = posts.find(post => post.id == postIdNumberType);
-                const findedUser: UserDetail | undefined = users.find(user => user.id == userId);
-                setPostData(findedPost);
-                setUserInfo(findedUser);
-            })
-        console.log("useEffect trên chạy !");
+
+        if (userId != undefined && postId != undefined) {
+            Promise.all([getPostsDataWithIdFromDatabase(postId), getUsersInfoWithIdFromDatabase(userId)])
+                .then(([post, user]) => {
+                    if (post != undefined && user != undefined) {
+                        const postFiltered = mapToPostType(post);
+                        const userFiltered = mapToUserDetail(user);
+                        setPostData(postFiltered);
+                        setUserInfo(userFiltered);
+                    }
+                })
+        }
+
 
     }, [userId, postId]);
 
-    useEffect(() => {   
-        if(location.hash)
-            document.querySelector(location.hash)?.scrollIntoView({behavior: "smooth"});
-    },[postData,userInfo]);
+    useEffect(() => {
+        if (location.hash)
+            document.querySelector(location.hash)?.scrollIntoView({ behavior: "smooth" });
+    }, [postData, userInfo]);
 
 
     return (

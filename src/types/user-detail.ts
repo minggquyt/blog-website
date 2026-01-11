@@ -53,6 +53,7 @@ interface UserMeta {
   updatedAt: string; 
 }
 
+// root user-profile datatype
 export interface UserDetail {
   id: string;
   background: string;
