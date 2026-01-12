@@ -1,28 +1,31 @@
-import getTagData from '../../services/getData.js';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import type {Tag} from '../../types/tag.ts';
+import type {TagSupababase} from '../../types/tag.ts';
+import { getAllDataFromDatabase } from '../../services/getData.js';
 import './TagSideBar.css'
 
 export default function TagSideBar() {
-    const [tags, setTags] = useState<Tag[]>([]);
+    const [tags, setTags] = useState<TagSupababase[] | undefined>(undefined);
+
     useEffect(() => {
-        getTagData()
-            .then(data => {
+        getAllDataFromDatabase("tags")
+            .then((data) => {
                 setTags(data);
-            })
-    }, []);
+            }) 
+    },[])
+
+    
     return (
         <aside className='tagsidebar'>
             <NavLink to="/" key="home" id="home" className='tagsidebar-item roboto-500' >
                 <span>🤖</span>
                 <p>Home</p>
             </NavLink>
-            {tags.length > 0 && tags.map((tag) => {
+            {tags && tags.map((tag) => {
                 return (
-                    <NavLink to={`/${tag['slug']}`} key={tag['id']} className='tagsidebar-item roboto-500' >
-                        <span>{tag["icon"]}</span>
-                        <p>{tag["name"]}</p>
+                    <NavLink to={`/${tag.tag_slug}`} key={tag.id} className='tagsidebar-item roboto-500' >
+                        <span>🤖</span>
+                        <p>{tag.name}</p>
                     </NavLink>
                 )
             })}

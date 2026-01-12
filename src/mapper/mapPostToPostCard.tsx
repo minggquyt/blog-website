@@ -1,6 +1,6 @@
-import type { Post, PostCard } from "../types";
+import type { Post, PostCard} from "../types";
 
-export function mapPostToPostCard(post: Post): PostCard {
+export const mapPostToPostCard = (post: Post): PostCard => {
   return {
     postId: post.id,
     postTitle: post.title,
@@ -14,6 +14,7 @@ export function mapPostToPostCard(post: Post): PostCard {
 
     postAuthorId: post.author.id,
     postAuthorName: post.author.name,
-    postAuthorAvatar: post.author.avatar
+    postAuthorAvatar: post.author.avatar,
   };
-}
+};
+

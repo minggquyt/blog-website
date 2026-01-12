@@ -1,30 +1,41 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getUsersData } from '../../services/getData';
-import type { UserDetail, UserDetailList } from '../../types/index.ts';
+import { getUsersInfoWithIdFromDatabase} from '../../services/getData';
+import type { UserDetail } from '../../types/index.ts';
+import { mapToUserDetail } from '../../mapper/mapToUserDetail.tsx';
 import PostList from '../PostList/PostList.tsx';
 import './UserProfile.css'
 
 export default function UserProfile() {
     const { userId } = useParams();
-    const [userInfo, setUserInfo] = useState<UserDetail | null>(null);
+    const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
 
     useEffect(() => {
-        getUsersData()
-            .then((list: UserDetailList) => {
-                const filteredUserInfo = list.find(user => user.id == userId);
-                setUserInfo(filteredUserInfo);
+
+        if(userId != undefined){
+            getUsersInfoWithIdFromDatabase(userId)
+            .then((data) => {
+                if (data != undefined) {
+                    const filteredData: UserDetail | undefined  = mapToUserDetail(data);
+                   setUserInfo(filteredData);
+                }
+                else{
+                    console.warn("user profile data is undefined !");
+                }
             })
-            .catch(err => console.log(err))
+        }
+
     }, [userId]);
 
 
     return (
         <div className='userprofile'>
             {
-                userInfo ?
+                userInfo && userId ?
                     <>
-                        <div className="userprofile--header"></div>
+                        <div className="userprofile--header">
+                            <img src={userInfo.background} alt="" />
+                        </div>
                         <div className="userprofile--body">
                             <div className="userprofile--bodycontent">
                                 <div className="userprofile--bodycontent--header">
@@ -66,10 +77,10 @@ export default function UserProfile() {
                                         </div>
                                     </div>
                                     <div className="userprofile--bodycontent--body--rightcontainer">
-                                            <PostList
-                                                type='author'
-                                                value={userId}
-                                            />
+                                        <PostList
+                                            type='author'
+                                            value={userId}
+                                        />
                                     </div>
                                 </div>
                             </div>

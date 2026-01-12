@@ -1,4 +1,4 @@
-/* Auth Components Styles */
+@import url(../../variable.css);
 
 .auth-container {
   display: flex;
@@ -160,6 +160,7 @@
 }
 
 .info-group {
+  gap: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;

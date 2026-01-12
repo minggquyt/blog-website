@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import  type { PostCard } from "../../types/index.ts"
+import type { PostCard } from "../../types/index.ts"
 import './PostCard.css'
 
 export default function PostCard({
@@ -12,8 +12,9 @@ export default function PostCard({
     postTotalReacts,
     postTotalComments,
     postTotalSave,
-    postAuthorId 
+    postAuthorId
 }: PostCard) {
+
     return (
         <div key={postId} className="post-item">
             <NavLink to={`/users/${postAuthorId}`} className="post-item-header">
@@ -23,7 +24,7 @@ export default function PostCard({
                     <p className='post-item-header--createtime roboto-300'>{postCreateTime}</p>
                 </div>
             </NavLink>
-            <div className="post-item-title">
+            <NavLink to={`/${postAuthorId}/${postId}`} className="post-item-title">
                 <h1 className='roboto-500' >{postTitle}</h1>
                 <div className="post-item-tags inter-300">
                     {postRoles.map((role) => {
@@ -32,21 +33,21 @@ export default function PostCard({
                         )
                     })}
                 </div>
-            </div>
+            </NavLink>
             <div className="post-item-footer">
                 <div className='post-item-footer-left roboto-300' >
                     <div className="post-item-footer--react">
                         <span className="material-symbols-outlined">
-                            mood
+                            add_reaction
                         </span>
                         {postTotalReacts}
                     </div>
-                    <div className="post-item-footer--comment">
+                    <NavLink to={`/${postAuthorId}/${postId}/#commnets`} className="post-item-footer--comment">
                         <span className="material-symbols-outlined">
                             mode_comment
                         </span>
                         {postTotalComments}
-                    </div>
+                    </NavLink>
                 </div>
                 <div className="post-item-footer--bookmark">
                     <span className="material-symbols-outlined">

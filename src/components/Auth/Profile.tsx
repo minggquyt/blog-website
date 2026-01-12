@@ -17,7 +17,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
+    <div className="profile-container roboto-500">
       <div className="profile-card">
         <h2>Thông tin tài khoản</h2>
         

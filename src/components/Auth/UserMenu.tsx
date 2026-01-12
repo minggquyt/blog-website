@@ -23,7 +23,7 @@ const UserMenu = ({ onOpenProfile }: UserMenuProps) => {
   return (
     <div className="user-menu">
       <button
-        className="user-menu-button"
+        className="user-menu-button roboto-500"
         onClick={() => setIsOpen(!isOpen)}
       >
         {user.email}
@@ -32,7 +32,7 @@ const UserMenu = ({ onOpenProfile }: UserMenuProps) => {
       {isOpen && (
         <div className="user-menu-dropdown">
           <button
-            className="user-menu-item"
+            className="user-menu-item roboto-500"
             onClick={() => {
               onOpenProfile()
               setIsOpen(false)
@@ -41,7 +41,7 @@ const UserMenu = ({ onOpenProfile }: UserMenuProps) => {
             Thông tin tài khoản
           </button>
           <button
-            className="user-menu-item"
+            className="user-menu-item roboto-500"
             onClick={handleSignOut}
             disabled={loading}
           >

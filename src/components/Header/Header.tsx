@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import UserMenu from '../Auth/UserMenu'
+import { NavLink } from 'react-router-dom'
 import './Header.css'
 
 interface HeaderProps {
-  onOpenProfile: () => void
+    onOpenProfile: () => void
 }
 
 export default function Header({ onOpenProfile }: HeaderProps) {
@@ -27,21 +28,26 @@ export default function Header({ onOpenProfile }: HeaderProps) {
                     <span className="material-symbols-outlined">
                         search
                     </span>
-                    <input className='inter-300'  placeholder="Search..." type="text" />
+                    <input className='inter-300' placeholder="Search..." type="text" />
                 </form>
             </div>
             <div className="header__rightcontent">
+                <NavLink to="/">
+                    <span className="material-symbols-outlined">
+                        home
+                    </span>
+                </NavLink>
                 {user ? (
                     <UserMenu onOpenProfile={onOpenProfile} />
                 ) : (
                     <div className="auth-buttons">
-                        <button 
+                        <button
                             onClick={handleLogin}
                             className='roboto-300 login-btn'
                         >
                             Login
                         </button>
-                        <button 
+                        <button
                             onClick={handleSignup}
                             className='roboto-400 signup-btn'
                         >
