@@ -1,8 +1,9 @@
 import CommentCard from '../CommentCard/CommentCard';
-import { getCommentsCardByPostId, getCurrentUserId } from '../../services/getData';
+import { getCommentsCardByPostId, getCurrentUserId, insertCommnets } from '../../services/getData';
 import { useEffect, useState } from 'react';
 import { mapToCommentCard } from '../../mapper/mapToCommentCard';
-import type { CommentCardData } from '../../types/comments';
+import type { CommentCardData, CommnetToDb } from '../../types/comments';
+import { supabase } from '../../lib/supabase';
 import './CommentList.css';
 
 interface CommentListProps {
@@ -15,6 +16,7 @@ export default function CommentList({
     postId
 }: CommentListProps) {
     const [commentCards, setCommentCards] = useState<CommentCardData[] | []>([]);
+    const [commentEvent, setCommentEvent] = useState<object | null>(null);
 
     function initFormSubmit() {
         const commentContainer = document.querySelector(".post-detail-comments");
@@ -23,7 +25,7 @@ export default function CommentList({
             if (e.key === 'Enter') {
                 const currentInput = (event.target as HTMLElement).closest('input');
                 if (currentInput?.classList.contains("post-comments")) {
-                    const comment = {
+                    const comment: CommnetToDb = {
                         content: currentInput.value,
                         author_id: "",
                         post_id: postId,
@@ -35,8 +37,7 @@ export default function CommentList({
                         .then((userInfo) => {
                             if (userInfo != undefined) {
                                 comment.author_id = userInfo.user.id;
-                                console.log(comment);
-                                // logic insert comment to table 
+                                insertCommnets(comment)
                             }
                             else
                                 console.warn("Current user is undefined !");
@@ -46,6 +47,9 @@ export default function CommentList({
                 else {
                     console.log("đây là comment con");
                 }
+
+                if(currentInput != undefined)
+                    currentInput.value = '';
             }
 
         })
@@ -61,6 +65,32 @@ export default function CommentList({
         })
     }
 
+    // Init comments changes table listener 
+    useEffect(() => {
+        const commentChanges = supabase
+            .channel('table-db-changes')
+            .on(
+                'postgres_changes',
+                {
+                    event: 'INSERT',
+                    schema: 'public',
+                    table: 'comments',
+                },
+                (payload) => {
+                    console.log(payload);
+                    setCommentEvent(payload);
+                }
+            )
+            .subscribe()
+
+        return () => {
+            supabase.removeChannel(commentChanges);
+        }
+
+
+    }, [])
+
+    // Render comments data
     useEffect(() => {
         if (postId != undefined) {
             getCommentsCardByPostId(postId)
@@ -76,13 +106,7 @@ export default function CommentList({
 
         initFormSubmit();
 
-    }, [postId])
-
-    // mỗi khi component mount | rerender -> gắn event onenter trên component cha 
-    // nếu sự kiên ảy ra -> kiểm tra ô input -> lấy data lên database 
-    // insert vô database
-    // ở FE lắng nghe event database change -> rerender lại 
-    // -> Xong commnet cấp 1 
+    }, [postId, commentEvent])
 
     return (
         <div id='commnets' className="post-detail-comments">
@@ -93,7 +117,7 @@ export default function CommentList({
             </div>
             <div className="post-detail-comments--list">
                 {
-                    commentCards.length > 0 && commentCards.map((card) => {
+                    commentCards.length > 0 && commentCards.reverse().map((card) => {
                         return (
                             <CommentCard
                                 key={card.id}

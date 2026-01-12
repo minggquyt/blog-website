@@ -1,23 +1,24 @@
 import { supabase } from '../lib/supabase';
 import { mapToPostType } from '../mapper/mapToPostType';
+import type { CommnetToDb } from '../types/comments';
 
 export function getAllDataFromDatabase(tableName: string) {
-    return supabase.from(tableName).select("*")
-        .then(({ data, error }) => {
-            if (error) {
-                console.warn(`Error in fetching data from Supabase: ${error}`);
-                return;
-            }
-            else {
-                return data;
-            }
-        })
+  return supabase.from(tableName).select("*")
+    .then(({ data, error }) => {
+      if (error) {
+        console.warn(`Error in fetching data from Supabase: ${error}`);
+        return;
+      }
+      else {
+        return data;
+      }
+    })
 }
 
 export function getUsersInfoWithIdFromDatabase(userId: string) {
-    return supabase
-  .from("user_profiles")
-  .select(`
+  return supabase
+    .from("user_profiles")
+    .select(`
     id,
     background,
     username:display_name,
@@ -54,20 +55,20 @@ export function getUsersInfoWithIdFromDatabase(userId: string) {
       value
     )
   `)
-  .eq("id", userId)
-        .then(({data,error}) =>{
-            if(error){
-                console.log(error);
-                return;
-            }
-            else{
-                return data[0];
-            }
-        })
+    .eq("id", userId)
+    .then(({ data, error }) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      else {
+        return data[0];
+      }
+    })
 }
 
-export function getPostsDataWithIdFromDatabase(postId: string){
-    return supabase.from("posts").select(`
+export function getPostsDataWithIdFromDatabase(postId: string) {
+  return supabase.from("posts").select(`
         id,
       title,
       slug,
@@ -92,20 +93,20 @@ export function getPostsDataWithIdFromDatabase(postId: string){
         )
       )
         `)
-      .eq("id",postId)
-        .then(({ data, error }) => {
-            if (error) {
-                console.warn(error);
-                return;
-            }
-            else {
-                return data[0];
-            }
-        })
+    .eq("id", postId)
+    .then(({ data, error }) => {
+      if (error) {
+        console.warn(error);
+        return;
+      }
+      else {
+        return data[0];
+      }
+    })
 }
 
 export function getPostsDataFromDatabase() {
-    return supabase.from("posts").select(`
+  return supabase.from("posts").select(`
         id,
       title,
       slug,
@@ -130,18 +131,18 @@ export function getPostsDataFromDatabase() {
         )
       )
         `)
-        .then(({ data, error }) => {
-            if (error) {
-                console.warn(error);
-                return;
-            }
-            else {
-                return data.map(r => mapToPostType(r));
-            }
-        })
+    .then(({ data, error }) => {
+      if (error) {
+        console.warn(error);
+        return;
+      }
+      else {
+        return data.map(r => mapToPostType(r));
+      }
+    })
 }
 
-export function getCommentsCardByPostId(postId: string){
+export function getCommentsCardByPostId(postId: string) {
   return supabase.from("comments").select(`*,
 
     reacts:users_comments_like(count),
@@ -151,9 +152,9 @@ export function getCommentsCardByPostId(postId: string){
        display_name,
        avatar_url
     )
-    `).eq("post_id",postId)
-    .then(({data,error}) => {
-      if(error){
+    `).eq("post_id", postId)
+    .then(({ data, error }) => {
+      if (error) {
         console.log(error);
         return;
       }
@@ -162,14 +163,25 @@ export function getCommentsCardByPostId(postId: string){
     })
 }
 
-export function getCurrentUserId(){
-    return supabase.auth.getUser()
-      .then(({data, error}) => {
-        if(error){
-          console.log(error);
-          return;
-        }
-        else
-            return data;
-      })
+export function getCurrentUserId() {
+  return supabase.auth.getUser()
+    .then(({ data, error }) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      else
+        return data;
+    })
 }
+
+export function insertCommnets(comment: CommnetToDb) {
+  return supabase
+    .from('comments')
+    .insert(comment)
+    .then((error) => {
+      console.log(error);
+      return;
+    })
+}
+
