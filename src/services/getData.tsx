@@ -141,4 +141,35 @@ export function getPostsDataFromDatabase() {
         })
 }
 
+export function getCommentsCardByPostId(postId: string){
+  return supabase.from("comments").select(`*,
 
+    reacts:users_comments_like(count),
+
+    user_profiles!comments_author_id_fkey1(
+       id,
+       display_name,
+       avatar_url
+    )
+    `).eq("post_id",postId)
+    .then(({data,error}) => {
+      if(error){
+        console.log(error);
+        return;
+      }
+      else
+        return data;
+    })
+}
+
+export function getCurrentUserId(){
+    return supabase.auth.getUser()
+      .then(({data, error}) => {
+        if(error){
+          console.log(error);
+          return;
+        }
+        else
+            return data;
+      })
+}

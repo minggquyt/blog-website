@@ -1,10 +1,10 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import type { PostDetailParams, Post, UserDetail} from '../../types';
+import type { PostDetailParams, Post, UserDetail } from '../../types';
 import { getPostsDataWithIdFromDatabase, getUsersInfoWithIdFromDatabase } from '../../services/getData';
 import { mapToUserDetail } from '../../mapper/mapToUserDetail';
 import { mapToPostType } from '../../mapper/mapToPostType';
-import CommentCard from '../CommentCard/CommentCard';
+import CommentList from '../CommentList/CommentList';
 import './PostDetail.css'
 
 export default function PostDetail() {
@@ -27,7 +27,6 @@ export default function PostDetail() {
                 })
         }
 
-
     }, [userId, postId]);
 
     useEffect(() => {
@@ -39,7 +38,7 @@ export default function PostDetail() {
     return (
         <div className="post-detail">
             {
-                postData && userInfo && (
+                postData && userInfo && postId &&(
                     <>
                         <div className="post-detail-leftsidebar">
                             <div className='post-detail-leftsidebar--reaction'>
@@ -103,16 +102,10 @@ export default function PostDetail() {
                                     })
                                 }
                             </div>
-                            <div id='commnets' className="post-detail-comments">
-                                <h1 className='roboto-500'>Comments</h1>
-                                <div className="post-detail-comments--userinput">
-                                    <img src="/images/users/user-1.png" width="50px" height="50px" alt="" />
-                                    <form action=""><input className='roboto-300' type="text" placeholder='Thêm bình luận' /></form>
-                                </div>
-                                <div className="post-detail-comments--list">
-                                    <CommentCard />
-                                </div>
-                            </div>
+                            <CommentList
+                                currentUserAvatar = {userInfo.basicInfo.avatar.url}
+                                postId = {postId}
+                            />
                         </div>
                         <div className="post-detail-author">
                             <a className="post-detail-author--background">
