@@ -17,8 +17,10 @@ export default function CommentList({
 }: CommentListProps) {
     const [commentCards, setCommentCards] = useState<CommentCardData[] | []>([]);
     const [commentEvent, setCommentEvent] = useState<object | null>(null);
+    const [isLogin, setIsLogin] = useState<boolean>(false);
 
     function initFormSubmit() {
+
         const commentContainer = document.querySelector(".post-detail-comments");
         commentContainer?.addEventListener('keydown', (event) => {
             const e = event as KeyboardEvent
@@ -32,27 +34,32 @@ export default function CommentList({
                         parent_id: null,
                         image: null
                     }
+                    
+                    // validate empty string - vì sao component bị render 2 lần nếu không validate ? 
+                    if (comment.content?.trim() != "") {
+                        getCurrentUserId()
+                            .then((userInfo) => {
+                                if (userInfo != undefined) {
+                                    comment.author_id = userInfo.user.id;
+                                    insertCommnets(comment);
 
-                    getCurrentUserId()
-                        .then((userInfo) => {
-                            if (userInfo != undefined) {
-                                comment.author_id = userInfo.user.id;
-                                insertCommnets(comment)
-                            }
-                            else
-                                console.warn("Current user is undefined !");
-                        })
+                                }
+                                else {
+                                    console.warn("Current user is undefined !");
+                                }
+                            })
 
+                    }
                 }
                 else {
                     console.log("đây là comment con");
                 }
 
-                if(currentInput != undefined)
+                if (currentInput != undefined)
                     currentInput.value = '';
             }
-
         })
+
     }
 
     function removeInputDefaultBehavior() {
@@ -72,12 +79,11 @@ export default function CommentList({
             .on(
                 'postgres_changes',
                 {
-                    event: 'INSERT',
+                    event: '*',
                     schema: 'public',
                     table: 'comments',
                 },
                 (payload) => {
-                    console.log(payload);
                     setCommentEvent(payload);
                 }
             )
@@ -92,32 +98,49 @@ export default function CommentList({
 
     // Render comments data
     useEffect(() => {
-        if (postId != undefined) {
-            getCommentsCardByPostId(postId)
-                .then((data: any[] | undefined) => {
-                    if (data != undefined) {
-                        const filteredData = data.map(r => mapToCommentCard(r));
-                        setCommentCards(filteredData);
-                    }
-                });
+        if (postId !== undefined) {
+            getCommentsCardByPostId(postId).then((data) => {
+
+                console.log("hàm getpost chạy !");
+
+                if (data != undefined) {
+                    const filteredData = data.map(r => mapToCommentCard(r));
+                    setCommentCards(filteredData);
+                }
+            });
         }
+
+        getCurrentUserId()
+            .then((data) => {
+                console.log("Hàm này chạy");
+                if (data == undefined)
+                    setIsLogin(false);
+                else
+                    setIsLogin(true);
+            })
 
         removeInputDefaultBehavior();
 
         initFormSubmit();
 
-    }, [postId, commentEvent])
+    }, [postId, commentEvent, isLogin])
 
     return (
         <div id='commnets' className="post-detail-comments">
             <h1 className='roboto-500'>Comments</h1>
-            <div className="post-detail-comments--userinput">
-                <img src={currentUserAvatar} width="50px" height="50px" alt="" />
-                <form action=""><input className='post-comments roboto-300' type="text" placeholder='Thêm bình luận' /></form>
-            </div>
+            {
+                isLogin && (
+                    <>
+                        <div className="post-detail-comments--userinput">
+                            <img src={currentUserAvatar} width="50px" height="50px" alt="" />
+                            <form action=""><input className='post-comments roboto-300' type="text" placeholder='Thêm bình luận' /></form>
+                        </div>
+                    </>
+                )
+            }
             <div className="post-detail-comments--list">
                 {
-                    commentCards.length > 0 && commentCards.reverse().map((card) => {
+                    commentCards.length > 0 ? commentCards.map((card) => {
                         return (
                             <CommentCard
                                 key={card.id}
@@ -130,7 +153,13 @@ export default function CommentList({
                                 imageurl={card.imageUrl}
                             />
                         )
-                    })
+                    }) : (
+                        <div className="post-detail-comments--list--nocommentinit">
+                            <img src="/images/comments/no-comment.jpg" width="200px" alt="" />
+                            <h1 className='roboto-500'>Chưa có bình luận nào</h1>
+                            <div className='roboto-400'>Hãy là người bình luận đầu tiên</div>
+                        </div>
+                    )
                 }
             </div>
         </div>

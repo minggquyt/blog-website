@@ -158,8 +158,12 @@ export function getCommentsCardByPostId(postId: string) {
         console.log(error);
         return;
       }
-      else
-        return data;
+      else {
+        const dataSorted = (data ?? []).sort((a: any, b: any) => {
+          return new Date(b.createAt ?? 0).getTime() - new Date(a.createAt ?? 0).getTime() ;
+        }).reverse();
+        return dataSorted;
+      }
     })
 }
 

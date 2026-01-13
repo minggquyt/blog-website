@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-bottom: 100px;
     gap: 25px;
 }
 .post-detail-comments--userinput{
@@ -20,4 +21,10 @@
     outline: none;
     border: 1px solid rgb(139, 137, 137);
     padding-inline: 20px;
+}
+.post-detail-comments--list--nocommentinit{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
