@@ -20,6 +20,10 @@ export default function Header({ onOpenProfile }: HeaderProps) {
         navigate('/signup')
     }
 
+    const handleCreatePost = () => {
+        navigate('/create-post')
+    }
+
     return (
         <div className="header">
             <div className="header__leftcontent">
@@ -38,7 +42,19 @@ export default function Header({ onOpenProfile }: HeaderProps) {
                     </span>
                 </NavLink>
                 {user ? (
-                    <UserMenu onOpenProfile={onOpenProfile} />
+                    <>
+                        <button
+                            onClick={handleCreatePost}
+                            className='roboto-400 create-post-btn'
+                            title="Tạo bài viết"
+                        >
+                            <span className="material-symbols-outlined">
+                                edit_square
+                            </span>
+                            <span>Viết bài</span>
+                        </button>
+                        <UserMenu onOpenProfile={onOpenProfile} />
+                    </>
                 ) : (
                     <div className="auth-buttons">
                         <button

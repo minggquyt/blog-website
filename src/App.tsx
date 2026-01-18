@@ -5,6 +5,7 @@ import Header from './components/Header/Header'
 import Homepage from "./components/Homepage/Hompage"
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import CreatePostPage from './pages/CreatePostPage'
 import Profile from './components/Auth/Profile'
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/create-post" element={<CreatePostPage />} />
           <Route path="/*" element={<Homepage />} />
         </Routes>
         

@@ -1,3 +1,19 @@
+/* Loading and error states */
+.loading-container,
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.error-container {
+    color: #dc2626;
+}
+
 .post-detail {
     width: 100%;
     display: flex;
