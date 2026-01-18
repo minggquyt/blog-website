@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import type { PostDetailParams, Post, UserDetail } from '../../types';
-import { getPostsDataWithIdFromDatabase, getUsersInfoWithIdFromDatabase } from '../../services/getData';
+import { getPostsDataWithIdFromDatabase, getPostsDataWithSlugFromDatabase, getUsersInfoWithIdFromDatabase } from '../../services/getData';
 import { mapToUserDetail } from '../../mapper/mapToUserDetail';
 import { mapToPostType } from '../../mapper/mapToPostType';
 import CommentList from '../CommentList/CommentList';
@@ -11,23 +11,71 @@ export default function PostDetail() {
     const { userId, postId } = useParams<PostDetailParams>();
     const [postData, setPostData] = useState<Post | undefined>(undefined);
     const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const location = useLocation();
 
     useEffect(() => {
-
-        if (userId != undefined && postId != undefined) {
-            Promise.all([getPostsDataWithIdFromDatabase(postId), getUsersInfoWithIdFromDatabase(userId)])
-                .then(([post, user]) => {
-                    if (post != undefined && user != undefined) {
+        if (postId != undefined) {
+            // Clear existing data first to show loading state
+            setPostData(undefined);
+            setUserInfo(undefined);
+            setIsLoading(true);
+            
+            const loadPostData = async () => {
+                try {
+                    // Try to get post by ID first, then by slug if ID fails
+                    const getPostData = () => {
+                        // If postId is numeric, try ID first, otherwise try slug first
+                        const isNumeric = /^\d+$/.test(postId);
+                        
+                        if (isNumeric) {
+                            return getPostsDataWithIdFromDatabase(postId)
+                                .then(post => {
+                                    if (!post) {
+                                        // Fallback to slug query if ID fails
+                                        return getPostsDataWithSlugFromDatabase(postId);
+                                    }
+                                    return post;
+                                });
+                        } else {
+                            return getPostsDataWithSlugFromDatabase(postId)
+                                .then(post => {
+                                    if (!post) {
+                                        // Fallback to ID query if slug fails
+                                        return getPostsDataWithIdFromDatabase(postId);
+                                    }
+                                    return post;
+                                });
+                        }
+                    };
+                    
+                    const post = await getPostData();
+                    
+                    if (post != undefined) {
                         const postFiltered = mapToPostType(post);
-                        const userFiltered = mapToUserDetail(user);
                         setPostData(postFiltered);
-                        setUserInfo(userFiltered);
+                        
+                        // Get author info using userId from URL or post data
+                        const userProfile = Array.isArray(post.user_profile) ? post.user_profile[0] : post.user_profile;
+                        const authorId = userId || userProfile?.id;
+                        if (authorId) {
+                            const user = await getUsersInfoWithIdFromDatabase(authorId);
+                            if (user != undefined) {
+                                const userFiltered = mapToUserDetail(user);
+                                setUserInfo(userFiltered);
+                            }
+                        }
                     }
-                })
+                } catch (error: any) {
+                    console.error('Error loading post data:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+            
+            loadPostData();
         }
-
-    }, [userId, postId]);
+    }, [userId, postId, location.state]); // Add location.state to dependency to trigger reload
 
     useEffect(() => {
         if (location.hash)
@@ -38,7 +86,11 @@ export default function PostDetail() {
     return (
         <div className="post-detail">
             {
-                postData && userInfo && postId &&(
+                isLoading ? (
+                    <div className="loading-container">
+                        <div>Đang tải bài viết...</div>
+                    </div>
+                ) : postData && userInfo && postId ? (
                     <>
                         <div className="post-detail-leftsidebar">
                             <div className='post-detail-leftsidebar--reaction'>
@@ -81,10 +133,10 @@ export default function PostDetail() {
                                 <h1 className='roboto-500'>{postData.title}</h1>
                                 <div className="post-detail-content--title_tag">
                                     {
-                                        postData.roles.map((role) => {
+                                        postData.tags?.map((tag) => {
                                             return (
-                                                <p key={role} className="roboto-300">
-                                                    #{role}
+                                                <p key={tag} className="roboto-300">
+                                                    #{tag}
                                                 </p>
                                             )
                                         })
@@ -93,9 +145,9 @@ export default function PostDetail() {
                             </div>
                             <div className="post-detail-content--body">
                                 {
-                                    postData.content.map((paragraph) => {
+                                    postData.content?.map((paragraph, index) => {
                                         return (
-                                            <p key={paragraph.id} className="roboto-400">
+                                            <p key={index} className="roboto-400">
                                                 {paragraph.value}
                                             </p>
                                         )
@@ -143,6 +195,10 @@ export default function PostDetail() {
                             </div>
                         </div>
                     </>
+                ) : (
+                    <div className="error-container">
+                        <div>Không thể tải bài viết. Vui lòng thử lại sau.</div>
+                    </div>
                 )
             }
 
