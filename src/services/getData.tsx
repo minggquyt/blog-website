@@ -105,6 +105,44 @@ export function getPostsDataWithIdFromDatabase(postId: string) {
     })
 }
 
+export function getPostsDataWithSlugFromDatabase(slug: string) {
+  return supabase.from("posts").select(`
+        id,
+      title,
+      slug,
+      created_at,
+      content,
+      cover_image,
+
+      user_profile:author_id (
+        id,
+        display_name,
+        avatar_url,
+        email
+      ),
+
+      comments(count),
+
+      users_posts_like(count),
+
+      posts_tags(
+        tags(
+          tag_slug
+        )
+      )
+        `)
+    .eq("slug", slug)
+    .then(({ data, error }) => {
+      if (error) {
+        console.warn(error);
+        return;
+      }
+      else {
+        return data[0];
+      }
+    })
+}
+
 export function getPostsDataFromDatabase() {
   return supabase.from("posts").select(`
         id,

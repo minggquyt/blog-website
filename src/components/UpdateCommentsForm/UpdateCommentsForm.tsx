@@ -1,4 +1,3 @@
-import type { ChangeEvent, FormEvent } from 'react';
 import { useRef } from 'react';
 import './UpdateCommentsForm.css'
 
@@ -34,7 +33,7 @@ export default function UpdateCommentsForm({
                 <input ref={inputRef} type="text" onKeyDown={handleOnKeyDown} />
                 <button type='button' onClick={handleOnclick} >Gửi</button>
             </form>
-            <button type='button' onClick={e => onClickUpdateCommentHandler(false)}>Nhấn vào dây để <strong>Hủy</strong></button>
+            <button type='button' onClick={() => onClickUpdateCommentHandler(false)}>Nhấn vào dây để <strong>Hủy</strong></button>
         </div>
     )
 }

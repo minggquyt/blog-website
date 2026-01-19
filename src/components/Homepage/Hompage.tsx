@@ -10,9 +10,10 @@ export default function Homepage() {
     return (
         <div className='content'>
             <Routes>
-                <Route path=':tagSlug?' element={<Blogs />} />
-                <Route path='/users/:userId' element={<UserProfile />} />
-                <Route path='/:userId/:postId' element={<PostDetail />} />
+                <Route path=':tagSlug?' element={<Blogs/>} />
+                <Route path='/users/:userId' element={<UserProfile/>} />
+                <Route path='/post/:postId' element={<PostDetail/>} />
+                <Route path='/:userId/:postId' element={<PostDetail/>}  />
             </Routes>
         </div>
     )
