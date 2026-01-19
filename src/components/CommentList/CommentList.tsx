@@ -1,23 +1,61 @@
-import CommentCard from '../CommentCard/CommentCard';
-import { getCommentsCardByPostId, getCurrentUserId, insertCommnets } from '../../services/getData';
+import { getCommentsCardByPostId, getCurrentLoginUserInfoById, insertCommnets } from '../../services/getData';
 import { useEffect, useState } from 'react';
-import { mapToCommentCard } from '../../mapper/mapToCommentCard';
-import type { CommentCardData, CommnetToDb } from '../../types/comments';
+import type { CommentCardData, CommentToDb, CommentCardBuildTree } from '../../types/comments';
 import { supabase } from '../../lib/supabase';
+import CommentItem from '../CommentItem/CommentItem';
+import CommentBox from '../CommentBox/CommentBox';
 import './CommentList.css';
 
 interface CommentListProps {
-    currentUserAvatar: string,
+    currentLoginuserId: string | undefined,
+    isCurrentUserLogin: boolean,
     postId: string | undefined
 }
 
 export default function CommentList({
-    currentUserAvatar,
+    currentLoginuserId, 
+    isCurrentUserLogin,
     postId
 }: CommentListProps) {
-    const [commentCards, setCommentCards] = useState<CommentCardData[] | []>([]);
+    
+    const [commentCards, setCommentCards] = useState<CommentCardBuildTree | []>([]);
     const [commentEvent, setCommentEvent] = useState<object | null>(null);
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [activeReplyCommentId, setActiveReplyCommentId] = useState<string | null>(null);
+    const [currentUserLoginInfo, setCurrentUserLoginInfo] = useState<any | null>(null);
+
+    // convert comments from database to hierarchy comments tree 
+    function buildCommentTree(comments: CommentCardData[]) {
+        const map = new Map();
+        const roots: CommentCardBuildTree = [];
+
+        comments.forEach(c => {
+            // insert field children in each element
+            map.set(c.id, { ...c, children: [] });
+        });
+
+        comments.forEach(c => {
+            if (c.parent_id) {
+                map.get(c.parent_id)?.children.push(map.get(c.id));
+            } else {
+                roots.push(map.get(c.id));
+            }
+        });
+
+        return roots;
+    }
+
+    // handle onclick to display reply box 
+    function handleReplyState(commentIdOnUpdate: string | null) {
+        if(commentIdOnUpdate != null && commentIdOnUpdate != activeReplyCommentId){
+            setActiveReplyCommentId(commentIdOnUpdate);
+        }
+        else if(commentIdOnUpdate != null && commentIdOnUpdate == activeReplyCommentId){
+            setActiveReplyCommentId(null);
+        }
+        else if(commentIdOnUpdate == null){
+            setActiveReplyCommentId(null);
+        }
+    }
 
     function initFormSubmit() {
 
@@ -27,32 +65,42 @@ export default function CommentList({
             if (e.key === 'Enter') {
                 const currentInput = (event.target as HTMLElement).closest('input');
                 if (currentInput?.classList.contains("post-comments")) {
-                    const comment: CommnetToDb = {
+                    const comment: CommentToDb = {
                         content: currentInput.value,
                         author_id: "",
                         post_id: postId,
                         parent_id: null,
                         image: null
                     }
-                    
+
                     // validate empty string - vì sao component bị render 2 lần nếu không validate ? 
-                    if (comment.content?.trim() != "") {
-                        getCurrentUserId()
-                            .then((userInfo) => {
-                                if (userInfo != undefined) {
-                                    comment.author_id = userInfo.user.id;
-                                    insertCommnets(comment);
-
-                                }
-                                else {
-                                    console.warn("Current user is undefined !");
-                                }
-                            })
-
+                    if (comment.content?.trim() != "" && currentLoginuserId != undefined) {
+                        comment.author_id = currentLoginuserId
+                        insertCommnets(comment);
                     }
                 }
-                else {
+                else if (currentInput?.classList.contains('sub-comments')) {
                     console.log("đây là comment con");
+
+                    // get Parent Comment Id
+                    const parentComment = (event.target as HTMLElement).closest('.comment-card');
+                    const parentCommentId = (parentComment as HTMLElement | undefined)?.dataset.id ?? null;
+
+
+                    const comment: CommentToDb = {
+                        content: currentInput.value,
+                        author_id: "",
+                        post_id: postId,
+                        parent_id: parentCommentId, // lấy id của comment cha 
+                        image: null
+                    }
+
+                    // validate empty string - vì sao component bị render 2 lần nếu không validate ? 
+                    if (comment.content?.trim() != "" && currentLoginuserId != undefined) {
+                        comment.author_id = currentLoginuserId
+                        insertCommnets(comment);
+                    }
+
                 }
 
                 if (currentInput != undefined)
@@ -60,16 +108,6 @@ export default function CommentList({
             }
         })
 
-    }
-
-    function removeInputDefaultBehavior() {
-        const forms = document.querySelectorAll("form");
-        forms.forEach((form) => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            })
-        })
     }
 
     // Init comments changes table listener 
@@ -84,6 +122,7 @@ export default function CommentList({
                     table: 'comments',
                 },
                 (payload) => {
+                    console.log("comments table thay đổi !");
                     setCommentEvent(payload);
                 }
             )
@@ -99,42 +138,45 @@ export default function CommentList({
     // Render comments data
     useEffect(() => {
         if (postId !== undefined) {
-            getCommentsCardByPostId(postId).then((data) => {
+            if (currentLoginuserId != undefined) {
+                Promise.all([getCommentsCardByPostId(postId), getCurrentLoginUserInfoById(currentLoginuserId)])
+                    .then(([commentsData, currentUserLoginData]) => {
+                        if (commentsData != undefined) {
+                            const buildedTree = buildCommentTree(commentsData);
+                            setCommentCards(buildedTree);
+                        }
+                        currentUserLoginData != undefined && setCurrentUserLoginInfo(currentUserLoginData[0]);
+                    })
+            }
+            else {
+                getCommentsCardByPostId(postId)
+                    .then((commentsData) => {
+                        if (commentsData != undefined) {
+                            const buildedTree = buildCommentTree(commentsData);
+                            setCommentCards(buildedTree);
+                        }
+                        setCurrentUserLoginInfo(null);
+                    })
+            }
 
-                console.log("hàm getpost chạy !");
+            setActiveReplyCommentId(null);
 
-                if (data != undefined) {
-                    const filteredData = data.map(r => mapToCommentCard(r));
-                    setCommentCards(filteredData);
-                }
-            });
         }
 
-        getCurrentUserId()
-            .then((data) => {
-                console.log("Hàm này chạy");
-                if (data == undefined)
-                    setIsLogin(false);
-                else
-                    setIsLogin(true);
-            })
 
-        removeInputDefaultBehavior();
+
 
         initFormSubmit();
 
-    }, [postId, commentEvent, isLogin])
+    }, [postId, commentEvent, currentLoginuserId])
 
     return (
         <div id='commnets' className="post-detail-comments">
             <h1 className='roboto-500'>Comments</h1>
             {
-                isLogin && (
+                isCurrentUserLogin && currentUserLoginInfo && (
                     <>
-                        <div className="post-detail-comments--userinput">
-                            <img src={currentUserAvatar} width="50px" height="50px" alt="" />
-                            <form action=""><input className='post-comments roboto-300' type="text" placeholder='Thêm bình luận' /></form>
-                        </div>
+                        <CommentBox userAvatar={currentUserLoginInfo.avatar_url} isReply={false} handleReplyState={null} />
                     </>
                 )
             }
@@ -142,15 +184,13 @@ export default function CommentList({
                 {
                     commentCards.length > 0 ? commentCards.map((card) => {
                         return (
-                            <CommentCard
+                            <CommentItem
                                 key={card.id}
-                                content={card.content}
-                                username={card.user.name}
-                                useravatar={card.user.avatarUrl}
-                                created_at={card.createdAt}
-                                likes={card.likes}
-                                canReply={card.canReply}
-                                imageurl={card.imageUrl}
+                                currentComment={card}
+                                currentCommentUser={currentUserLoginInfo}
+                                replyCommentId={activeReplyCommentId}
+                                onReplyState={handleReplyState}
+                                currentCommentLevel={Number(card.level)}
                             />
                         )
                     }) : (
@@ -160,8 +200,9 @@ export default function CommentList({
                             <div className='roboto-400'>Hãy là người bình luận đầu tiên</div>
                         </div>
                     )
+
                 }
             </div>
-        </div>
+        </div >
     )
 }

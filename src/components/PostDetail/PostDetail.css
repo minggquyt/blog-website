@@ -76,6 +76,9 @@
     padding-inline: 30px;
     gap: 10px;
 }
+.post-detail-content--author > img{
+    border-radius: 50%;
+}
 
 .post-detail-content--authordesc {
     display: flex;
@@ -123,6 +126,7 @@
 }
 
 .post-detail-author--info>img {
+    border-radius: 50%;
     position: absolute;
     top: -20px;
 }

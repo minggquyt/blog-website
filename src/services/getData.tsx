@@ -1,6 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { mapToPostType } from '../mapper/mapToPostType';
-import type { CommnetToDb } from '../types/comments';
+import type { CommentToDb } from '../types/comments';
 
 export function getAllDataFromDatabase(tableName: string) {
   return supabase.from(tableName).select("*")
@@ -146,6 +146,7 @@ export function getCommentsCardByPostId(postId: string) {
   return supabase.from("comments").select(`*,
 
     reacts:users_comments_like(count),
+    parent_id,
 
     user_profiles!comments_author_id_fkey1(
        id,
@@ -167,7 +168,7 @@ export function getCommentsCardByPostId(postId: string) {
     })
 }
 
-export function getCurrentUserId() {
+export function getCurrentUserLogin() {
   return supabase.auth.getUser()
     .then(({ data, error }) => {
       if (error) {
@@ -179,7 +180,19 @@ export function getCurrentUserId() {
     })
 }
 
-export function insertCommnets(comment: CommnetToDb) {
+export function getCurrentLoginUserInfoById(userId: string){
+  return supabase.from("user_profiles").select("*").eq("id",userId)
+    .then(({data, error}) => {
+      if(error){
+        console.log(error);
+        return;
+      }
+      else
+        return data;
+    })
+}
+
+export function insertCommnets(comment: CommentToDb) {
   return supabase
     .from('comments')
     .insert(comment)
@@ -189,3 +202,18 @@ export function insertCommnets(comment: CommnetToDb) {
     })
 }
 
+export function deleteCommnets(id: string){
+    return supabase.from("comments").delete().eq('id',id)
+      .then((res) => {
+        console.log(res);
+        return res; 
+      })  
+}
+
+export function updateComments(id: string, content: any){
+  return supabase.from("comments").update(content).eq("id",id)
+    .then((error) => {
+      console.log(error);
+      return error;
+    })
+}

@@ -1,17 +1,45 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import type { PostDetailParams, Post, UserDetail } from '../../types';
-import { getPostsDataWithIdFromDatabase, getUsersInfoWithIdFromDatabase } from '../../services/getData';
+import { getPostsDataWithIdFromDatabase, getUsersInfoWithIdFromDatabase, getCurrentUserLogin } from '../../services/getData';
 import { mapToUserDetail } from '../../mapper/mapToUserDetail';
 import { mapToPostType } from '../../mapper/mapToPostType';
 import CommentList from '../CommentList/CommentList';
+import { supabase } from '../../lib/supabase';
 import './PostDetail.css'
 
 export default function PostDetail() {
     const { userId, postId } = useParams<PostDetailParams>();
     const [postData, setPostData] = useState<Post | undefined>(undefined);
     const [userInfo, setUserInfo] = useState<UserDetail | undefined>(undefined);
+    const [currentUserLogin, setCurrentUserLogin] = useState<any | null>(null);
+    const [isLogin, setIsLogin] = useState<boolean>(false);
     const location = useLocation();
+
+    useEffect(() => {
+        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+            if ((event == 'INITIAL_SESSION' || event === 'SIGNED_OUT') && session == null)
+                setIsLogin(false);
+            else if ((event == 'INITIAL_SESSION' || event === 'SIGNED_IN') && session != null)
+                setIsLogin(true);
+        },)
+
+        // call unsubscribe to remove the callback
+        return () => {
+            data.subscription.unsubscribe();
+        }
+    }, [])
+
+    useEffect(() => {
+        if (isLogin) {
+            getCurrentUserLogin()
+                .then(currentUser => {
+                    currentUser != undefined && setCurrentUserLogin(currentUser);
+                })
+        }
+        else
+            setCurrentUserLogin(null);
+    }, [isLogin])
 
     useEffect(() => {
 
@@ -26,19 +54,17 @@ export default function PostDetail() {
                     }
                 })
         }
-
     }, [userId, postId]);
 
     useEffect(() => {
         if (location.hash)
             document.querySelector(location.hash)?.scrollIntoView({ behavior: "smooth" });
-    }, [postData, userInfo]);
-
+    }, [postData, userInfo, currentUserLogin]);
 
     return (
         <div className="post-detail">
             {
-                postData && userInfo && postId &&(
+                postData && userInfo && postId && (
                     <>
                         <div className="post-detail-leftsidebar">
                             <div className='post-detail-leftsidebar--reaction'>
@@ -102,10 +128,21 @@ export default function PostDetail() {
                                     })
                                 }
                             </div>
-                            <CommentList
-                                currentUserAvatar = {userInfo.basicInfo.avatar.url}
-                                postId = {postId}
-                            />
+                            {
+                                isLogin && currentUserLogin != null ? (
+                                    <CommentList
+                                        currentLoginuserId={currentUserLogin.user.id}
+                                        isCurrentUserLogin={isLogin}
+                                        postId={postId}
+                                    />
+                                ) : (
+                                    <CommentList
+                                        currentLoginuserId={undefined}
+                                        isCurrentUserLogin={isLogin}
+                                        postId={postId}
+                                    />
+                                )
+                            }
                         </div>
                         <div className="post-detail-author">
                             <a className="post-detail-author--background">

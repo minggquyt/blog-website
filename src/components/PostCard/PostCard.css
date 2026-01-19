@@ -16,6 +16,9 @@
     color: black;
     gap: 10px;
 }
+.post-item-header > img{
+    border-radius: 50%;
+}
 .post-item-title{
     padding-left: 50px;
     display: flex;

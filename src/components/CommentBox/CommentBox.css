@@ -1,0 +1,24 @@
+.post-detail-comments--userinput--reply{
+    margin-left: 70px;
+}
+.post-detail-comments--userinput
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.post-detail-comments--userinput > img{
+    border-radius: 50%;
+}
+.post-detail-comments--userinput > form{
+    width: 100%;
+    height: 50px;
+}
+.post-detail-comments--userinput > form > input{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgb(139, 137, 137);
+    padding-inline: 20px;
+}

@@ -1,20 +1,25 @@
 export interface CommentUserInfo {
   id: string;
-  name: string;
-  avatarUrl: string;
+  display_name: string;
+  avatar_url: string;
 }
 
 export interface CommentCardData {
   id: string;
-  user: CommentUserInfo;
-  createdAt: string;
+  user_profiles: CommentUserInfo;
+  created_at: string;
   content: string;
   likes: number;
   canReply: boolean;
-  imageUrl?: string | undefined;
+  parent_id: string;
+  level: string,
+  imageUrl?: string | undefined; 
+  children: CommentCardData[];
 }
 
-export interface CommnetToDb {
+export type CommentCardBuildTree = CommentCardData[];
+
+export interface CommentToDb {
   content: string | null,
   author_id: string,
   post_id: string | undefined,

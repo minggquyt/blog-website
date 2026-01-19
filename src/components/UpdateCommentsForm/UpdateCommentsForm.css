@@ -1,0 +1,23 @@
+.update-comment-form{
+    width: 100%;
+}
+.update-comment-form  > form{
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+.update-comment-form  > form > button{
+    flex-grow: 1;
+}
+.update-comment-form > form > input{
+    width: 90%;
+    height: 50px;
+    border-radius: 5px;
+    padding-inline-start: 20px;
+}
+.update-comment-form > button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+}

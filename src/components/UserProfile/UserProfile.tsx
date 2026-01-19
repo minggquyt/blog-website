@@ -17,7 +17,7 @@ export default function UserProfile() {
             .then((data) => {
                 if (data != undefined) {
                     const filteredData: UserDetail | undefined  = mapToUserDetail(data);
-                   setUserInfo(filteredData);
+                    setUserInfo(filteredData);
                 }
                 else{
                     console.warn("user profile data is undefined !");
@@ -40,7 +40,7 @@ export default function UserProfile() {
                             <div className="userprofile--bodycontent">
                                 <div className="userprofile--bodycontent--header">
                                     <div className="userprofile--bodycontent--header--user">
-                                        <img src="/images/users/user-1.png" width="200px" height="200px" alt="" />
+                                        <img src={userInfo.basicInfo.avatar.url} width="200px" height="200px" alt="" />
                                         <div className="userprofile--bodycontent--header--userinfo">
                                             <h1 className='userprofile--bodycontent--header--username roboto-500'>{userInfo.basicInfo.username}</h1>
                                             <p className='userprofile--bodycontent--header--userfollower roboto-300'><span>{userInfo.basicInfo.followers.count} </span><span>{userInfo.basicInfo.followers.label}</span></p>

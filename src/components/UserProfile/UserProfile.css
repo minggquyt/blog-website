@@ -42,6 +42,7 @@
     gap: 20px;
 }
 .userprofile--bodycontent--header--user > img{
+    border-radius: 50%;
     position: relative;
     top: -55px;
 }
