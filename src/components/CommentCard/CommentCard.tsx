@@ -39,7 +39,6 @@ export default function CommentCard({
     const [isUpdateComment, setIsUpdateComment] = useState<boolean>(false);
 
     function handleClickUpdateComment(value: boolean){
-        console.log('Bạn click vào update !');
         setIsUpdateComment(value);
     }
 
@@ -47,6 +46,10 @@ export default function CommentCard({
         e.stopPropagation();
         const toggleValue = !isDisplayEditCommentBox;
         setIsDisplayEditCommentBox(toggleValue);
+    }
+
+    function setStateDisplayEditbox(value: boolean){
+        setIsDisplayEditCommentBox(value);
     }
 
     return (
@@ -107,7 +110,7 @@ export default function CommentCard({
                         </div>
                     ) : (
                        <>
-                        <UpdateCommentsForm  onClickUpdateCommentHandler={handleClickUpdateComment} />
+                        <UpdateCommentsForm toggleEditBox={setStateDisplayEditbox} onClickUpdateCommentHandler={handleClickUpdateComment} />
                        </>
                     )
                 }

@@ -1,11 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import './UpdateCommentsForm.css'
 
 interface UpdateCommentsFormProps {
+    toggleEditBox: Function
     onClickUpdateCommentHandler: Function
 }
 
 export default function UpdateCommentsForm({
+    toggleEditBox,
     onClickUpdateCommentHandler
 }: UpdateCommentsFormProps) {
     const inputRef = useRef(null);
@@ -22,10 +24,13 @@ export default function UpdateCommentsForm({
 
     function handleOnclick(e: React.FormEvent) {
         e.preventDefault();
-
         const inputValue = inputRef.current != null ? (inputRef.current as HTMLInputElement).value : null;
         console.log(inputValue);
     }
+
+    useEffect(() => {
+        toggleEditBox(false);
+    },[])
 
     return (
         <div className="update-comment-form">
