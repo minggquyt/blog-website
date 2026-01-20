@@ -1,0 +1,73 @@
+.menu--leftsidebar{
+    position: fixed;
+    padding-top: 10px;
+    width: 200px;
+    height: 100vh;
+    background-color: white;
+    border-left: 1px solid black;
+    z-index: 2;
+    top: 60px;
+    right: 0;
+    transform: translateX(90%); 
+    transition: transform 0.7s ease-in-out; 
+}
+.menu--leftsidebar > a{
+    text-decoration: none;
+    padding-inline: 10px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: black;
+    border-bottom: 1px solid black;
+}
+.active{
+    transform: translateX(0%);
+}
+.menu--pseudolayer{
+    position: fixed;
+    margin-top: 60px;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: 1;
+    opacity: 0.5;
+}
+.create-post-menubarbtn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+.auth-menu_buttons{
+    display: flex;
+    flex-direction: column;
+}
+.login-menubtn{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.signup-menubtn{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.auth-menu_buttons >div{
+    padding: 5px 10px;
+    border-bottom: 1px solid black;
+}
+.auth-menu_buttons >div>span:nth-child(1){
+    width: 24px;
+    height: 24px;
+}
