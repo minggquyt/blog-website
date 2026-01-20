@@ -9,6 +9,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 .comment-card-header > span:hover{
     cursor: pointer;

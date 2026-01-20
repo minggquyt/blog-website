@@ -2,6 +2,7 @@ import CommentBox from '../CommentBox/CommentBox';
 import { useState } from 'react';
 import EditCommentBox from '../EditCommetBox/EditCommentBox';
 import UpdateCommentsForm from '../UpdateCommentsForm/UpdateCommentsForm';
+import { NavLink } from 'react-router-dom';
 import './CommentCard.css';
 
 interface CommentCardProps {
@@ -55,7 +56,7 @@ export default function CommentCard({
     return (
         <>
             <div style={{ marginLeft: `${marginleft}` }} data-id={commentCardId} className="comment-card">
-                <div className="comment-card-header">
+                <NavLink to={`/users/${author_id}`} className="comment-card-header">
                     <div className='comment-card-header--userinfo'>
                         <img src={useravatar} width="50px" height="50px" alt="" />
                         <div>
@@ -71,7 +72,7 @@ export default function CommentCard({
                             <EditCommentBox onClickHandler={handleClick} isSameUser={author_id == currentReplyUser?.id} onClickUpdateButtonHandler={handleClickUpdateComment} />
                         )
                     }
-                </div>
+                </NavLink>
                 {
                     !isUpdateComment ? (
                         <div className="comment-card-body">

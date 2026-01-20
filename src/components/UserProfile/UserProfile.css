@@ -2,6 +2,11 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.userprofile-loading{
+    margin: auto;
 }
 .userprofile--header{
     width: 100%;

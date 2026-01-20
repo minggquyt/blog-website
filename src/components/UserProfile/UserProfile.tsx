@@ -86,7 +86,7 @@ export default function UserProfile() {
                             </div>
                         </div>
                     </>
-                    : <div>Chưa có data</div>
+                    : <div className='roboto-400 userprofile-loading' >Đang tải nội dung ...</div>
             }
         </div>
     )

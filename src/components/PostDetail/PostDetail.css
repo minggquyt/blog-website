@@ -212,7 +212,9 @@
 }
 
 @media (min-width: 660px) and (max-width: 1260px){
-    
+    .post-detail-content--background>img{
+        height: 320px;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 660px){
@@ -221,5 +223,8 @@
     }
     .post-detail-content{
         margin-inline: 0 !important;
+    }
+    .post-detail-content--background>img{
+        height: 220px;
     }
 }
