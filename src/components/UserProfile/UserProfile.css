@@ -58,6 +58,7 @@
 }
 .userprofile--bodycontent--body{
     display: flex;
+    padding-inline-start: 20px;
     padding-bottom: 100px;
     gap: 20px;
 }
@@ -88,4 +89,44 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+.userprofile--bodycontent--body--rightcontainer{
+    width: 100%;
+}
+
+@media (min-width: 660px) and (max-width: 1260px){
+    .userprofile--bodycontent--header--user > img{
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 660px){
+    .userprofile--bodycontent--body{
+        flex-direction: column;
+        padding-left: 10px;
+    }
+    .userprofile--bodycontent--body-leftcontainer{
+        padding-right: 10px;
+    }
+    .userprofile--bodycontent--header--user{
+        height: 120px;
+    }
+    .userprofile--bodycontent--header--user > img{
+       width: 150px;
+       height: 150px; 
+    }
+    .userprofile--bodycontent--header{
+        padding-inline: 10px;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+    .userprofile--bodycontent--header > button{
+        margin-top: 0;
+    }
+    .userprofile--bodycontent--body--rightcontainer{
+        position: relative;
+        top: -100px;
+    }
 }

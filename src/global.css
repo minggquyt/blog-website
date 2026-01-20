@@ -6,3 +6,23 @@
 body{
     background-color: rgb(246, 246, 246);
 }
+.app{
+    padding-top: 0.5px;
+ }
+ h1{
+    font-size: 1.563rem;
+ }
+ h3,p{
+    font-size: 1rem;
+ }
+
+@media (min-width: 660px) and (max-width: 1260px){
+    html{
+        font-size: 14px;
+    }
+}
+@media (min-width: 320px) and (max-width: 660px){
+    html{
+        font-size: 12px;
+    }
+}

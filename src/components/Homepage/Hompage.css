@@ -2,3 +2,13 @@
     display: flex;
     gap: 20px;
 }
+
+@media (min-width: 660px) and (max-width: 1260px){
+    
+}
+
+@media (min-width: 320px) and (max-width: 660px){
+    .content{
+        flex-direction: column;
+    }
+}

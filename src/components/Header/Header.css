@@ -47,7 +47,7 @@
 }
 
 .header__leftcontent>form>span {
-    font-size: 30px;
+    font-size: 1.875rem;
 }
 
 .header__rightcontent {
@@ -118,7 +118,7 @@
     background-color: var(--accent-color);
     color: white;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -130,5 +130,48 @@
 }
 
 .create-post-btn .material-symbols-outlined {
-    font-size: 20px;
+    font-size: 1.25rem;
+}
+.menubar{
+    display: none;
+}
+
+@media (min-width: 660px) and (max-width: 1260px){
+    .header{
+        gap: 20px;
+    }
+    .header__leftcontent{
+        gap: 10px;
+    }
+    .header__rightcontent{
+        gap: 10px;
+    }
+    .createpost-text{
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 660px){
+    .header{
+        gap: 20px;
+        padding-inline: 10px;
+        position: fixed;
+        width:100vw;
+        margin-top: 0;
+        background-color: white;
+        z-index: 3;
+    }
+    .menubar{
+        display: inline !important;
+    }
+    .header__rightcontent{
+        width: 24px;
+        height: 24px;
+    }
+    .header__rightcontent span{
+        display: none;
+    }
+    .header__rightcontent button{
+        display: none;
+    }
 }

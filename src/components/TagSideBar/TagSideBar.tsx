@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import type {TagSupababase} from '../../types/tag.ts';
+import type { TagSupababase } from '../../types/tag.ts';
 import { getAllDataFromDatabase } from '../../services/getData.js';
 import './TagSideBar.css'
 
@@ -11,24 +11,26 @@ export default function TagSideBar() {
         getAllDataFromDatabase("tags")
             .then((data) => {
                 setTags(data);
-            }) 
-    },[])
+            })
+    }, [])
 
-    
+
     return (
         <aside className='tagsidebar'>
-            <NavLink to="/" key="home" id="home" className='tagsidebar-item roboto-500' >
-                <span>🤖</span>
-                <p>Home</p>
-            </NavLink>
-            {tags && tags.map((tag) => {
-                return (
-                    <NavLink to={`/${tag.tag_slug}`} key={tag.id} className='tagsidebar-item roboto-500' >
-                        <span>🤖</span>
-                        <p>{tag.name}</p>
-                    </NavLink>
-                )
-            })}
+            <div>
+                <NavLink to="/" key="home" id="home" className='tagsidebar-item roboto-500' >
+                    <span>🤖</span>
+                    <p>Home</p>
+                </NavLink>
+                {tags && tags.map((tag) => {
+                    return (
+                        <NavLink to={`/${tag.tag_slug}`} key={tag.id} className='tagsidebar-item roboto-500' >
+                            <span>🤖</span>
+                            <p>{tag.name}</p>
+                        </NavLink>
+                    )
+                })}
+            </div>
         </aside>
     )
 

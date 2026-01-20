@@ -11,6 +11,7 @@ interface HeaderProps {
 export default function Header({ onOpenProfile }: HeaderProps) {
     const { user } = useAuth()
     const navigate = useNavigate()
+    
 
     const handleLogin = () => {
         navigate('/login')
@@ -36,6 +37,9 @@ export default function Header({ onOpenProfile }: HeaderProps) {
                 </form>
             </div>
             <div className="header__rightcontent">
+                <span className="material-symbols-outlined menubar">
+                    menu
+                </span>
                 <NavLink to="/">
                     <span className="material-symbols-outlined">
                         home
@@ -51,7 +55,7 @@ export default function Header({ onOpenProfile }: HeaderProps) {
                             <span className="material-symbols-outlined">
                                 edit_square
                             </span>
-                            <span>Viết bài</span>
+                            <span className='createpost-text'>Viết bài</span>
                         </button>
                         <UserMenu onOpenProfile={onOpenProfile} />
                     </>
